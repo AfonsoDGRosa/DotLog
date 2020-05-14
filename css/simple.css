@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css?family=Oxanium&display=swap');
+
+body{
+    /*background-color: rgb(51,51,51);*/
+    background-color: whitesmoke;
+    margin: 0;
+    color:white;
+}
+
+#navbar{
+    background-color: white;
+    width: 100%;
+    overflow: hidden;
+    height: 70px;
+    /*line-height: 40px;*/
+    
+}
+
+#navbar .logo{
+    margin-top: 0.6%;
+    margin-left: 1%;
+}
+
+#navbar .signin{
+    margin-top: -3%;
+    margin-right: 8%;
+}
+
+#navbar_options{
+    margin-top: 1.1%;
+    font-family: verdana;
+    display: flex;
+    flex-direction: row-reverse;
+    float: right;
+}
+
+.opcao{
+    margin-right: 15%;
+    color: rgb(153, 153, 153);
+    font-weight: bold;
+}
+
+@keyframes load {
+    0% {
+        opacity: 0;
+        transform: translatey(70px);
+    }
+
+    /*80{
+        transform: translatey(25px);
+    }
+    */
+
+    100%{
+        opacity: 1;
+        transform: translatey(30px);
+    }
+}
+
+.separador{
+    content: "";
+    width: 3px;
+    height: 155px;
+    background-color: white;
+}
+
+.footer{
+    background-color: rgb(42, 44, 53);
+    height: 350px;
+    color: white;
+    font-family: Verdana;
+}
+
+.footer a{
+    color: white;
+}
+
+.footer a:hover{
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.load{
+    opacity: 0;
+    animation: load 1s ease-in-out 1 forwards;
+}
