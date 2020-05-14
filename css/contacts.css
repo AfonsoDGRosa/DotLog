@@ -1,3 +1,7 @@
+body{
+	background-color: white;
+}
+
 .front_text {
   display: flex;
   /*margin-left: 10%;
@@ -69,24 +73,18 @@
   background-color: white;
 }
 
-.footer {
-  background-color: rgb(42, 44, 53);
-  height: 350px;
-  color: white;
-  font-family: Verdana;
+.Lista{
+    width: 500px;
+    margin-bottom: 10%;
+    margin-right: 5%;
+    float: left;
 }
 
-.footer a {
-  color: white;
+.lista_div{
+    margin-left: 10%;
+	margin-top: 10%;
 }
 
-.footer a:hover {
-  color: white;
-  font-weight: bold;
-  text-decoration: none;
-}
-
-.load {
-  opacity: 0;
-  animation: load 1s ease-in-out 1 forwards;
+.lista_container{
+    width: 250%;
 }

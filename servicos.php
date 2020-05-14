@@ -1,25 +1,26 @@
+<?php
+
+?>
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link href="css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/contactos.css" />
-    <link rel="stylesheet" type="text/css" href="css/simple.css" />
-	<link href="css/contacts.css" rel="stylesheet" />
-	<title>Contactos</title>
-    
 
-
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serviços</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/simple.css">
+    <link rel="stylesheet" type="text/css" href="css/servicos.css">
     
-  </head>
-  <body>
+</head>
+
+<body>
     <script src="scripts/jquery-3.4.1.js"></script>
     <script src="scripts/simple.js"></script>
 
     <script src="scripts/js/bootstrap.min.js"></script>
 	<script src="scripts/js/bootstrap.bundle.min.js"></script>
-
+	
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#"><img src="images/dotlog_logo.png" class="logo" style="width: 200px"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,58 +77,57 @@
     </div>
   </nav>
 
-    <table border="0" style="width:50%;border-collapse:collapse">
-      <tr>
-        <th rowspan="2" style="background-color: rgb(51,51,51)">
-          <div class="front_text">
-            <div class="Imtext">
-              <p class="main_text">Contacte-nos:</p>
-              <br />
-              <p class="lower_text">
-                R. Cavaleiros da Grande Guerra, Leiria<br />
-                dotlog@gmail.com<br />
-                923 424 112<br />
-                08:00 - 21:00
-              </p>
-            </div>
-          </div>
-        </th>
-		
-        <th>
-          <div class="lista_container">
+    <table id="table_tamanho" style="width:50%; height: 600px;">
+        <tr>
+            <th rowspan="2" style="background-color: rgb(51,51,51)">
+                <div class="front_text">
+
+                    <div class="Imtext">
+                        <p class="main_text">Os Nossos serviços</p>
+                        <p class="lower_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sit amet
+                            neque
+                            pretium,
+                            blandit turpis nec, fermentum mi. Ut finibus felis</p>
+                    </div>
+
+                </div>
+            </th>
+
+            <th>
+                <div class="lista_container">
                     <div class="lista_div">
 
 
                     <div class="Lista">
-                        <h2>Morada</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia omnis excepturi voluptatibus id iusto</p>
+                        <h2>Assitencia Por Telefone</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia omnis excepturi voluptatibus id iusto? Atque earum nobis eligendi architecto inventore, voluptate minima rem et nemo quo placeat illo voluptatum quas!</p>
                     </div>
 
                     <div class="Lista">
-                        <h2>Email Comercial</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia omnis excepturi voluptatibus id iusto</p>
+                        <h2>Consultoria</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum voluptate, reiciendis nam laborum minima labore facere vel mollitia nesciunt modi. Nihil ipsa, cum consequatur repudiandae asperiores quod beatae eaque fuga!</p>
                     </div>
 
                     <div class="Lista">
-                        <h2>Email Administrativo</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia omnis excepturi voluptatibus id iusto</p>
+                        <h2>Propostas</h2>
+                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Omnis consequatur sit unde inventore neque numquam, dolore obcaecati earum enim velit eligendi debitis laborum necessitatibus commodi voluptas, modi rem dolores saepe.</p>
                     </div>
 
                     <div class="Lista">
-                        <h2>Email Técnico</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia omnis excepturi voluptatibus id iusto</p>
+                        <h2>Assistência Remota</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis suscipit nihil aperiam illum deserunt, iure in error? Accusamus inventore debitis sapiente nam quaerat, reprehenderit consequuntur rerum cum harum numquam dolorum.</p>
                     </div>
 
                     <div class="Lista">
-                        <h2>Redes Sociais</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia omnis excepturi voluptatibus id iusto</p>
+                        <h2>Implementação Certificada</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga accusantium voluptas itaque. Id sapiente perferendis fuga tempora libero ducimus corrupti optio excepturi doloribus? Dicta a vitae earum tempora tempore suscipit.</p>
                     </div>
 
-                    </th>
+                    </td>
                 </div>
                 </div>
-        </td>
-      </tr>
+            </th>
+
     </table>
 
     <footer class="page-footer font-small unique-color-dark footer" style="background-color: #30373f;"><br>
@@ -180,5 +180,6 @@
     </div>
     
   </footer>
-  </body>
+</body>
+
 </html>

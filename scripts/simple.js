@@ -8,7 +8,24 @@ $(document).ready(function() {
         $(this).css("color","rgb(153,153,153)")
         
     })
-    $(".opcao").click(function(){
-        window.location = "test.html"
+	
+	$(".logo").mouseover(function(){
+        $(this).css("cursor","pointer")
+    })
+	
+	$(".servicos").click(function(){
+        window.location = "servicos.html"
+    })
+	
+	$(".contactos").click(function(){
+        window.location = "contactos.html"
+    })
+	
+	$(".sobre").click(function(){
+        window.location = "sobre.html"
+    })
+	
+	$(".logo").click(function(){
+        window.location = "index.html"
     })
 })
