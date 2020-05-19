@@ -175,7 +175,7 @@
 			<h5 class="card-title">Produto1</h5>
 			<br>
 			<p class="card-text">Um dos muitos produtos que a DotLog oferece.</p>
-			<a href="servicos.html" class="btn btn-primary btn-light servico_button">Saber Mais</a>
+			<a href="produto.php" class="btn btn-primary btn-light servico_button">Saber Mais</a>
 		</div>
 	</div>
 	
@@ -185,7 +185,7 @@
 			<h5 class="card-title">Produto2</h5>
 			<br>
 			<p class="card-text">Um dos muitos produtos que a DotLog oferece.</p>
-			<a href="servicos.html" class="btn btn-primary btn-light servico_button">Saber Mais</a>
+			<a href="produto.php" class="btn btn-primary btn-light servico_button">Saber Mais</a>
 		</div>
 	</div>
 	
@@ -195,7 +195,7 @@
 			<h5 class="card-title">Produto3</h5>
 			<br>
 			<p class="card-text">Um dos muitos produtos que a DotLog oferece.</p>
-			<a href="servicos.html" class="btn btn-primary btn-light servico_button">Saber Mais</a>
+			<a href="produto.php" class="btn btn-primary btn-light servico_button">Saber Mais</a>
 		</div>
 	</div>
 	
