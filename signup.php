@@ -28,11 +28,12 @@ session_start();
 
 	?>
 
-<section>
+<section class="before_navbar">
             <?php
             $validar = 0;
             $email = "";
             $nome = "";
+            $apelido= "";
             $pass = "";
             $foto = "";
             if (!empty($_POST)) {
@@ -81,9 +82,9 @@ session_start();
                                 $pass = mysqli_real_escape_string($conn, $pass);
                                 $pass = hash('sha512', $pass);
                                 if ($foto !== "") {
-                                    $sql = "insert into utilizador (email, nome, pass, foto) values ('$email','$nome','$pass','$nova_foto')";
+                                    $sql = "insert into utilizador (Email, PrimeiroNome, Apelido, Pass, Imagem) values ('$email','$nome', '$apelido', '$pass','$nova_foto')";
                                 } else {
-                                    $sql = "insert into utilizador (email, nome, pass) values ('$email','$nome','$pass')";
+                                    $sql = "insert into utilizador (Email, PrimeiroNome, Apelido, Pass) values ('$email','$nome', '$apelido', '$pass')";
                                 }
                                 $result = $conn->query($sql);
                                 if ($result) {
@@ -112,6 +113,8 @@ session_start();
                 <input type="email" name="email" id="idEmail" required value="' . $email . '">*<br>
                 <label for="idNome">Nome: </label>
                 <input type="text" name="nome" id="idNome" required value="' . $nome . '">*<br>
+                <label for="idApelido">Apelido</label>
+                <input type="text" name="apelido" id="idApelido" required value="' . $apelido . '">*<br>
                 <label for="idPass">Password: </label>
                 <input type="password" name="pass" id="idPass" required >*<br>
                 <label for="idFoto">Foto: </label>

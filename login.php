@@ -33,7 +33,7 @@
                 <div id="login-column" class="col-md-6">
                     <div id="login-box" class="col-md-12">
                         <form id="login-form" class="form" action="" method="post">
-                        <img src="images/sign_in.png" class="signin" style="width: 25px">
+                        <img id="login-img" src="images/sign_in.png" class="signin">
                             <div class="form-group">
                                 <label for="username" class="text-info">Username:</label><br>
                                 <input type="text" name="username" id="username" class="form-control">
