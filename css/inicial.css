@@ -49,31 +49,27 @@ body{
 }
 
 .servico_button{
-	color:#00a2e8;
+	color:rgba(0,128,195,1);
 	border-color:#00a2e8;
 }
 
-.btn-primary:hover, .btn-primary:focus, .btn-primary:active{
+.servico_button:hover, .servico_button:focus, .servico_button:active{
 	color:white;
-	background-color:#00a2e8;
+	background-color:rgba(0,128,195,1);
 }
-
-/*.servico_button_hover, .servico_button_hover:active{
-	color:#00a2e8;
-}*/
 
 .servicos_card{
 	border-radius: 0;
-	box-shadow: 0px 0px 10px 0px rgb(0,0,0,0.3)
+	border-color:rgba(180,180,180,1);
+	/*box-shadow: 7px 7px 10px 0px rgb(0,0,0,0.2)*/
 }
 
 .servicos_card:hover{
-	border-color: rgba(0,190,255,0.5);
+	border-color:rgba(0,128,195,1);
 	/*background-color: rgba(0,190,255,0.1);*/
 	width: 19rem;
 	border-width:2px;
-	cursor: pointer;
-	
+	cursor: pointer;	
 }
 
 .servicos_lista{

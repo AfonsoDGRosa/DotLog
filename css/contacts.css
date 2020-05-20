@@ -11,10 +11,6 @@ body{
   margin-bottom: 15%;
 }
 
-.Imtext {
-  /*margin-left: 5%;*/
-}
-
 .div_button {
   margin: auto;
   width: 10%;
@@ -60,12 +56,6 @@ body{
   }
 }
 
-.POS {
-  /*animation: flt 5s ease-in-out infinite;*/
-  margin-left: 2%;
-}
-
-
 .separador{
   content: "";
   width: 3px;
@@ -74,10 +64,16 @@ body{
 }
 
 .Lista{
+	font-family:Segoe UI;
     width: 500px;
-    margin-bottom: 10%;
+    font-weight:normal;
+	margin-bottom: 5%;
     margin-right: 5%;
     float: left;
+}
+
+.Lista h2{
+	font-weight:normal;
 }
 
 .lista_div{

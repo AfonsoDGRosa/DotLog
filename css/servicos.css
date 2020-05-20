@@ -11,10 +11,6 @@ body{
     margin-bottom: 15%;
 }
 
-.Imtext{
-    /*margin-left: 5%;*/
-}
-
 .div_button{
     margin: auto;
     width: 10%;
@@ -33,7 +29,7 @@ body{
     margin-bottom: 0%;
     opacity: 0;
     animation: load 1s ease-in-out 1 forwards;
-    animation-delay: 0.3s;
+    animation-delay: 0s;
 }
 
 .lower_text{
@@ -46,7 +42,7 @@ body{
     margin-left: 20%;
     opacity: 0;
     animation: load 1s ease-in-out 1 forwards;
-    animation-delay: 0.7s;
+    animation-delay: 0.4s;
 }
 
 @keyframes flt {
@@ -64,17 +60,17 @@ body{
 	}
 }
 
-.POS{   
-    /*animation: flt 5s ease-in-out infinite;*/
-    margin-left: 2%;
-}
-
-
 .Lista{
+	font-family:Segoe UI;
     width: 500px;
-    margin-bottom: 10%;
+	font-weight:normal;
+    margin-bottom: 5%;
     margin-right: 5%;
     float: left;
+}
+
+.Lista h2{
+	font-weight:bold;
 }
 
 .lista_div{

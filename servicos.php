@@ -16,66 +16,13 @@
 
 <body>
     <script src="scripts/jquery-3.4.1.js"></script>
-    <script src="scripts/simple.js"></script>
 
     <script src="scripts/js/bootstrap.min.js"></script>
 	<script src="scripts/js/bootstrap.bundle.min.js"></script>
 	
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#"><img src="images/dotlog_logo.png" class="logo" style="width: 200px"></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        
-        
-      </ul>
-
-      <form class="form-inline my-2 my-lg-0">
-        <ul class="navbar-nav mr-auto opcao">
-          <li class="nav-item opcao">
-            <a class="nav-link" href="sobre.html">Sobre</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link opcao" href="contactos.php">Contactos</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Produtos
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item opcao" href="#">Hardware</a>
-			  <div class="dropdown-divider"></div>
-              <a class="dropdown-item opcao" href="#">Software</a>
-			  <div class="dropdown-divider"></div>
-              <a class="dropdown-item opcao" href="#">Consumiveis</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link opcao" href="servicos.html">Serviços</a>
-          </li>
-		  <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <img src="images/sign_in.png" class="signin" style="width: 25px">
-            </a>
-            <div class="dropdown-menu dropdown-menu-right text-muted" aria-labelledby="navbarDropdown">
-				<!--<p style="border-block-end: 0px">António Silva</p>
-				<p style="border-block-end: 0px">SilvaInc</p>-->
-				<p style="justify-content:normal;color:rgb(54, 54, 54);padding:.25rem 1.5rem">
-					António Silva
-					<br>
-					SilvaInc
-				</p>
-				<div class="dropdown-divider"></div>
-              <a class="dropdown-item opcao" href="#">Sign Out</a>
-              
-          </li>
-		  
-        </ul>
-      </form>
-    </div>
-  </nav>
+    <?php
+		require_once "navbar.php";
+	?>
 
     <table id="table_tamanho" style="width:50%; height: 600px;">
         <tr>
@@ -97,32 +44,61 @@
                 <div class="lista_container">
                     <div class="lista_div">
 
+					<?php
+						require_once "connectdb.php";
+						
+						if ($conn->connect_error) {
+							$code = $conn->connect_errno;
+							$message = $conn->connect_errno;
+							die("Erro na ligação da base de dados" . $conn->connect_error);
+						}
+						
+						$query = "SELECT distinct Descricao,Detalhes FROM dotlog.tipo_de_servicos where Detalhes is not null";
+						
+						$result_set = $conn->query($query);
+						
+						if ($result_set) {
+							
+							if ($result_set->num_rows > 0) {
+								$total_servicos = $result_set->num_rows;
+								
+								//$row = $result_set->fetch_assoc();
+								$cont = 0;
+								while($row = $result_set->fetch_assoc()) {
+									$cont += 1;
+									?>
+									
+									<div class="Lista">
+										<h2><?=$row['Descricao']?></h2>
+										<!--<p><?=$row['Detalhes']?></p>-->
+										<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia omnis excepturi voluptatibus id iusto? Atque earum nobis eligendi architecto inventore, voluptate minima rem et nemo quo placeat illo voluptatum quas!</p>
+										<a href="forum.php">Agendar Serviços</a>
+										<!--<p><?=$cont?></p>-->
+									</div>
+									
+									<?php
+								}
+								
+								//for ($i = 0;$i < $total_servicos;$i++) {
+									//echo "yatta desu ne!!!! UWU<br>";
+									
 
-                    <div class="Lista">
-                        <h2>Assitencia Por Telefone</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia omnis excepturi voluptatibus id iusto? Atque earum nobis eligendi architecto inventore, voluptate minima rem et nemo quo placeat illo voluptatum quas!</p>
-                    </div>
-
-                    <div class="Lista">
-                        <h2>Consultoria</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum voluptate, reiciendis nam laborum minima labore facere vel mollitia nesciunt modi. Nihil ipsa, cum consequatur repudiandae asperiores quod beatae eaque fuga!</p>
-                    </div>
-
-                    <div class="Lista">
-                        <h2>Propostas</h2>
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Omnis consequatur sit unde inventore neque numquam, dolore obcaecati earum enim velit eligendi debitis laborum necessitatibus commodi voluptas, modi rem dolores saepe.</p>
-                    </div>
-
-                    <div class="Lista">
-                        <h2>Assistência Remota</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis suscipit nihil aperiam illum deserunt, iure in error? Accusamus inventore debitis sapiente nam quaerat, reprehenderit consequuntur rerum cum harum numquam dolorum.</p>
-                    </div>
-
-                    <div class="Lista">
-                        <h2>Implementação Certificada</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga accusantium voluptas itaque. Id sapiente perferendis fuga tempora libero ducimus corrupti optio excepturi doloribus? Dicta a vitae earum tempora tempore suscipit.</p>
-                    </div>
-
+									
+									//<div class="Lista">
+									//	<h2>Assitencia Por Telefone</h2>
+									//	<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia omnis excepturi voluptatibus id iusto? Atque earum nobis eligendi architecto inventore, voluptate minima rem et nemo quo placeat illo voluptatum quas!</p>
+									//</div>
+								//}
+								
+							}
+							
+						} else {
+							$code = $conn->connect_errno;
+							$message = $conn->connect_errno;
+						}
+						
+					?>
+					
                     </td>
                 </div>
                 </div>
