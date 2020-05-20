@@ -68,7 +68,7 @@
 					SilvaInc
 				</p>
 				<div class="dropdown-divider"></div>
-              <a class="dropdown-item opcao" href="#">Sign Out</a>
+              <a class="dropdown-item opcao" href="login.php">Sign Out</a>
               
           </li>
 		  

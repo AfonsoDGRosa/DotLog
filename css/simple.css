@@ -86,6 +86,8 @@ body{
 .footer{
     color: white;
     font-family: Verdana;
+    display: -webkit-box;
+
 }
 
 .footer a{
