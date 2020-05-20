@@ -1,5 +1,6 @@
 #login .container #login-row #login-column #login-box {
   margin-bottom: 120px;
+  margin-top: 100px;
   max-width: 600px;
   height: 320px;
   border: 1px solid #9C9C9C;
@@ -10,8 +11,4 @@
 }
 #login .container #login-row #login-column #login-box #login-form #register-link {
   margin-top: -85px;
-}
-
-login.img{
-  
 }

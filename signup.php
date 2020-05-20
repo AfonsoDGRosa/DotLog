@@ -1,7 +1,6 @@
 <?php
-
+session_start();
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,15 +24,8 @@
 
   <?php
     require_once "navbar.php";
-    require_once "connectdb.php";
-		
-		$error_message = "";
-		
-		if ($conn->connect_error) {
-			$code = $conn->connect_errno;
-			$message = $conn->connect_errno;
-			die("Erro na ligação da base de dados" . $conn->connect_error);
-		}
+		require "connectdb.php";
+
 	?>
 
 <section>
