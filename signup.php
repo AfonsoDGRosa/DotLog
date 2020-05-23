@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,7 +36,6 @@ session_start();
             $nome = "";
             $apelido= "";
             $pass = "";
-            $foto = "";
             if (!empty($_POST)) {
                 if (isset($_POST["email"])) {
                     $email = $_POST["email"];
@@ -45,9 +45,6 @@ session_start();
                 }
                 if (isset($_POST["pass"])) {
                     $pass = $_POST["pass"];
-                }
-                if (isset($_FILES["foto"]["name"])) {
-                    $foto = $_FILES["foto"]["name"];
                 }
                 if (!empty($email) && !empty($nome) && !empty($pass)) {
                     if ($conn->connect_errno) {
@@ -64,28 +61,11 @@ session_start();
                             echo "<p>Já existe o email indicado</p>";
                         } else {
                             $uploadOk = 1;
-                            if ($foto !== "") {
-                                $diretoria_upload = "uploads/";
-                                $extensao = pathinfo($foto, PATHINFO_EXTENSION);
-                                $nova_foto = $diretoria_upload . microtime() . "." . $extensao;
-                                // Check if image file is a actual image or fake image                        
-                                $check = getimagesize($_FILES["foto"]["tmp_name"]);
-                                if (!$check) {
-                                    echo "<p>Ficheiro não é imagem</p>";
-                                    $uploadOk = 0;
-                                } else {
-                                    move_uploaded_file($_FILES["foto"]["tmp_name"], $nova_foto);
-                                }
-                            }
                             if ($uploadOk) {
                                 $nome = mysqli_real_escape_string($conn, $nome);
                                 $pass = mysqli_real_escape_string($conn, $pass);
                                 $pass = hash('sha512', $pass);
-                                if ($foto !== "") {
-                                    $sql = "insert into utilizador (Email, PrimeiroNome, Apelido, Pass, Imagem) values ('$email','$nome', '$apelido', '$pass','$nova_foto')";
-                                } else {
-                                    $sql = "insert into utilizador (Email, PrimeiroNome, Apelido, Pass) values ('$email','$nome', '$apelido', '$pass')";
-                                }
+                                $sql = "insert into utilizador (Email, PrimeiroNome, Apelido, Pass) values ('$email','$nome', '$apelido', '$pass')";
                                 $result = $conn->query($sql);
                                 if ($result) {
                                     echo "Dados registados com sucesso";
@@ -106,33 +86,32 @@ session_start();
             if ($validar == 0) {
                 echo ' 
         
-            <h2>Novo utilizador</h2> 
-
-            <form action="#" method="post" id="insertUser" enctype="multipart/form-data">
-                <label for="idEmail">Email: </label>
-                <input type="email" name="email" id="idEmail" required value="' . $email . '">*<br>
-                <label for="idNome">Nome: </label>
-                <input type="text" name="nome" id="idNome" required value="' . $nome . '">*<br>
-                <label for="idApelido">Apelido</label>
-                <input type="text" name="apelido" id="idApelido" required value="' . $apelido . '">*<br>
-                <label for="idPass">Password: </label>
-                <input type="password" name="pass" id="idPass" required >*<br>
-                <label for="idFoto">Foto: </label>
-                <input type="file" name="foto" id="idFoto"><br>
+            
+        <div id="login">
+        <div class="container">
+        <div id="login-row" class="row justify-content-center align-items-center">
+        <div id="login-column" class="col-md-6">
+        <div id="login-box" class="col-md-12">
+        <h2>Novo utilizador</h2>
+                    <form action="#" method="post" id="insertUser" enctype="multipart/form-data">
+                      <label for="idEmail">Email: </label>
+                      <input type="email" name="email" id="idEmail" required value="' . $email . '">*<br>
+                      <label for="idNome">Nome: </label>
+                      <input type="text" name="nome" id="idNome" required value="' . $nome . '">*<br>
+                      <label for="idApelido">Apelido</label>
+                      <input type="text" name="apelido" id="idApelido" required value="' . $apelido . '">*<br>
+                      <label for="idPass">Password: </label>
+                      <input type="password" name="pass" id="idPass" required >*<br>
                 
-                <input type="submit" value="Inserir" id="btSubmit">
-                <input type="reset" value="Limpar" id="btReset">
-                 <br>
-                 <br>
-            </form>
+                      <br>
+                      <br>
+                      <input type="submit" value="Inserir" id="btSubmit">
+                      <input type="reset" value="Limpar" id="btReset">
+                     </form>
         ';
-                if ($foto==""){
-                    echo '<div id="zonaImg"><img id="idImgFoto" src="uploads/sem-imagem.png" alt="Imagem" height="90" /><br>
-                          <a id="idApagar" href="#" style="display:none">Apagar Imagem</a></div>';
-                }else{
-                    echo '<div id="zonaImg"><img id="idImgFoto" src="'.$foto.'" alt="Imagem" height="90" /><br>
-                          <a id="idApagar" href="#">Apagar Imagem</a></div>';
-                }
+            }
+            else{
+              header("Location: index.php");
             }
             ?>
 
