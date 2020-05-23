@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 ?>
 
@@ -24,10 +25,47 @@
   <!--<script src="scripts/simple.js"></script>-->
 
   <?php
-		require_once "navbar.php";
+    require_once "navbar.php";
+    require "connectdb.php";
 	?>
 
-  <div id="login">
+<section class="before_navbar">
+            <?php
+            $validar = 0;
+            $email = "";
+            $pass = "";
+            if (!empty($_POST)) {
+                if (isset($_POST["email"])) {
+                    $email = $_POST["email"];
+                }
+                if (isset($_POST["pass"])) {
+                    $pass = $_POST["pass"];
+                }
+                if (!empty($email) && !empty($pass)) {
+                    if ($conn->connect_errno) {
+                        $code = $conn->connect_errno;
+                        $message = $conn->connect_error;
+                        echo "<p>Erro de conexão à base de dados: $code $message</p>";
+                    } else {
+                        $email = mysqli_real_escape_string($conn, $email);
+
+                        $sql = "SELECT email FROM utilizador where email='$email'";
+                        $result = $conn->query($sql);
+                        
+                        if ($result && $result->num_rows) {
+                            echo "<p>Já existe o email indicado</p>";
+                        } else {
+                            $uploadOk = 1;
+                        }
+                        $conn->close();
+                    }
+                } else {
+                    echo "<p>Introduza valores para os campos obrigatórios</p>";
+                }
+            }
+            if ($validar == 0) {
+                echo ' 
+         <div id="login">
         <div class="container">
             <div id="login-row" class="row justify-content-center align-items-center">
                 <div id="login-column" class="col-md-6">
@@ -35,19 +73,19 @@
                         <form id="login-form" class="form" action="" method="post">
                         <img id="login-img" src="images/sign_in.png" class="signin">
                             <div class="form-group">
-                                <label for="username" class="text-info">Username:</label><br>
-                                <input type="text" name="username" id="username" class="form-control">
+                                <label for="usermail" class="text-info">E-mail:</label><br>
+                                <input type="text" name="email" id="usermail" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="password" class="text-info">Password:</label><br>
-                                <input type="text" name="password" id="password" class="form-control">
+                                <input type="password" name="password" id="password" class="form-control">
                             </div>
                             <div class="form-group">
                                 <br>
                                 <input type="submit" name="submit" class="btn btn-info btn-md" value="submit">
                             </div>
                             <div id="register-link" class="text-right">
-                                <a href="#" class="text-info">Register here</a>
+                                <a href="signup.php" class="text-info">Register here</a>
                             </div>
                         </form>
                     </div>
@@ -55,6 +93,10 @@
             </div>
         </div>
     </div>
+  ';          
+  }
+  ?>
+</section>
 
   <footer class="page-footer font-small unique-color-dark footer" style="background-color: #30373f;"><br>
     <div class="container text-center text-md-left mt-5">
