@@ -1,4 +1,6 @@
 <?php
+
+session_start();
 ?>
 
 <!DOCTYPE html>
@@ -29,45 +31,49 @@
   ?>
 
   <section class="before_navbar">
-  <?php
-  $validar = 0;
-  $email = "";
-  $pass = "";
-  if (isset($_POST['login-submit'])) {
+    <?php
+    $validar = 0;
+    $email = "";
+    $pass = "";
+    if (isset($_POST['login-submit'])) {
 
-    $email = $_POST['usermail'];
-    $pass = $_POST['pass'];
+      $email = $_POST['usermail'];
+      $pass = $_POST['pass'];
 
-    if (empty($email) || empty($pass)) {
-      echo'<p>email ou pass vazias</p>';
-    } else {
-      $sql = "SELECT * FROM utilizador WHERE Email=?;";
-      $stmt = mysqli_stmt_init($conn);
-      if (!mysqli_stmt_prepare($stmt, $sql)) {
-        echo'<p>sqlerror</p>';
+      if (empty($email) || empty($pass)) {
+        echo '<p>email ou pass vazias</p>';
       } else {
-        mysqli_stmt_bind_param($stmt, $email, $pass);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
-        if ($row = mysqli_fetch_assoc($result)) {
-          $passCheck = password_verify($pass, $row['pass']);
-          if ($passCheck == false) {
-            echo'<p>pass errada</p>';
-          } else if ($passCheck == true) {
-            $validar = 1;
-            session_start();
-            $_SESSION['userpname'] = $row['PrimeiroNome'];
-            $_SESSION['useraname'] = $row['Apelido'];
-          } else {
-            echo'<p>pass errada</p>';
-          }
+        $sql = "SELECT * FROM utilizador WHERE Email=?;";
+        $stmt = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+          echo '<p>sql error</p>';
         } else {
-          echo'<p>no user</p>';
+          mysqli_stmt_bind_param($stmt, "s", $email);
+          mysqli_stmt_execute($stmt);
+          $result = mysqli_stmt_get_result($stmt);
+          if ($row = mysqli_fetch_assoc($result)) {
+            $passCheck = hash('sha512', $pass) == $row['Pass'];
+            if ($passCheck == false) {
+              echo '<p>pass errada 1</p>';
+            } else if ($passCheck == true) {
+              $validar = 1;
+
+              $_SESSION['userpname'] = $row['PrimeiroNome'];
+              $_SESSION['useraname'] = $row['Apelido'];
+              echo '<p>Login completo</p>';
+            } else {
+              echo '<p>pass errada 2</p>';
+            }
+          } else {
+
+            echo $email;
+            echo $pass;
+            echo '<p>no user</p>';
+          }
         }
       }
-    }
-  } else if($validar == 0) {
-    echo '
+    } else if ($validar == 0) {
+      echo '
     <div id="login">
     <div class="container">
       <div id="login-row" class="row justify-content-center align-items-center">
@@ -96,10 +102,9 @@
       </div>
     </div>
   </div>';
-  
-  }
-    
-  ?>
+    }
+
+    ?>
   </section>
   <footer class="page-footer font-small unique-color-dark footer" style="background-color: #30373f;"><br>
     <div class="container text-center text-md-left mt-5">

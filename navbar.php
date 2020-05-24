@@ -35,22 +35,32 @@
 		  <li class="nav-item">
             <a class="nav-link opcao" href="servicos.php">Serviços</a>
           </li>
-		  <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <img src="images/sign_in.png" class="signin" style="width: 25px">
-            </a>
-            <div class="dropdown-menu dropdown-menu-right text-muted" aria-labelledby="navbarDropdown">
-				<!--<p style="border-block-end: 0px">António Silva</p>
-				<p style="border-block-end: 0px">SilvaInc</p>-->
-				<p style="justify-content:normal;color:rgb(54, 54, 54);padding:.25rem 1.5rem">
-					António Silva
-					<br>
-					SilvaInc
-				</p>
-				<div class="dropdown-divider"></div>
-              <a class="dropdown-item opcao" href="#">Sign Out</a>
-              
-          </li>
+
+          <a class="dropdown-item"  href="login.php">Login</a>
+          <a class="dropdown-item opcao"  href="signup.php">Criar Conta</a>
+        
+<?php
+  if (isset($_SESSION['PrimeiroNome'])){
+    echo '<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <img src="images/sign_in.png" class="signin" style="width: 25px">
+    </a>
+    <div class="dropdown-menu dropdown-menu-right text-muted" aria-labelledby="navbarDropdown">
+<!--<p style="border-block-end: 0px">António Silva</p>
+<p style="border-block-end: 0px">SilvaInc</p>-->
+<p style="justify-content:normal;color:rgb(54, 54, 54);padding:.25rem 1.5rem">
+  António Silva
+  <br>
+  SilvaInc
+</p>
+<div class="dropdown-divider"></div>
+      <a class="dropdown-item opcao" href="#">Sign Out</a>
+      
+  </li>';
+  }
+
+?>
+		  
 		  
         </ul>
       </form>
