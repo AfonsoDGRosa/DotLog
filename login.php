@@ -41,12 +41,12 @@ session_start();
       $pass = $_POST['pass'];
 
       if (empty($email) || empty($pass)) {
-        echo '<p>email ou pass vazias</p>';
+        echo '<p>Email ou Password vazios</p>';
       } else {
         $sql = "SELECT * FROM utilizador WHERE Email=?;";
         $stmt = mysqli_stmt_init($conn);
         if (!mysqli_stmt_prepare($stmt, $sql)) {
-          echo '<p>sql error</p>';
+          echo '<p>Erro de conexão à base de dados</p>';
         } else {
           mysqli_stmt_bind_param($stmt, "s", $email);
           mysqli_stmt_execute($stmt);
@@ -54,22 +54,20 @@ session_start();
           if ($row = mysqli_fetch_assoc($result)) {
             $passCheck = hash('sha512', $pass) == $row['Pass'];
             if ($passCheck == false) {
-              echo '<p>pass errada 1</p>';
+              echo '<p>Password Errada</p>';
             } else if ($passCheck == true) {
               $validar = 1;
 
               $_SESSION['userpname'] = $row['PrimeiroNome'];
               $_SESSION['useraname'] = $row['Apelido'];
-              //Falta redirecionar para index!!
+              header("Location: index.php");
 
             } else {
-              echo '<p>pass errada 2</p>';
+              echo '<p>Password Errada</p>';
             }
           } else {
 
-            echo $email;
-            echo $pass;
-            echo '<p>no user</p>';
+            echo '<p>Email errado!!</p>';
           }
         }
       }
@@ -84,7 +82,7 @@ session_start();
               <img id="login-img" src="images/sign_in.png" class="signin">
               <div class="form-group">
                 <label for="usermail" class="text-info">E-mail:</label><br>
-                <input type="text" name="usermail" id="usermail" class="form-control">
+                <input type="email" name="usermail" id="usermail" class="form-control">
               </div>
               <div class="form-group">
                 <label for="password" class="text-info">Password:</label><br>

@@ -64,6 +64,7 @@ session_start();
             if ($uploadOk) {
               $nome = mysqli_real_escape_string($conn, $nome);
               $pass = mysqli_real_escape_string($conn, $pass);
+              $apelido = mysqli_real_escape_string($conn, $apelido);
               $pass = hash('sha512', $pass);
               $sql = "insert into utilizador (Email, PrimeiroNome, Apelido, Pass) values ('$email','$nome', '$apelido', '$pass')";
               $result = $conn->query($sql);
@@ -71,7 +72,6 @@ session_start();
                 echo "Dados registados com sucesso";
                 $validar = 1;
                 header("Location: index.php");
-                exit();
               } else {
                 $code = $conn->errno;
                 $message = $conn->error;

@@ -46,7 +46,7 @@
     </a>
     <div class="dropdown-menu dropdown-menu-right text-muted" aria-labelledby="navbarDropdown">
 <p style="justify-content:normal;color:rgb(54, 54, 54);padding:.25rem 1.5rem">
-  António Silva
+      ' . $_SESSION["userpname"] . '    
   <br>
   SilvaInc
 </p>
