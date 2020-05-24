@@ -1,7 +1,7 @@
 <?php
-$db_host = "localhost";
+$db_host = "mysql";
 $db_user = "root";
-$db_pass = "";
+$db_pass = "rootpassword";
 $database = "dotlog";
 $conn = new mysqli($db_host,$db_user,$db_pass,$database);
 $conn->set_charset("utf8");

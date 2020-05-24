@@ -20,73 +20,72 @@ session_start();
   <script src="scripts/jquery-3.4.1.js"></script>
   <script src="scripts/js/bootstrap.min.js"></script>
   <script src="scripts/js/bootstrap.bundle.min.js"></script>
-  
+
   <!--<script src="scripts/simple.js"></script>-->
 
   <?php
-    require_once "navbar.php";
-		require "connectdb.php";
+  require_once "navbar.php";
+  require "connectdb.php";
 
-	?>
+  ?>
 
-<section class="before_navbar">
-            <?php
-            $validar = 0;
-            $email = "";
-            $nome = "";
-            $apelido= "";
-            $pass = "";
-            if (!empty($_POST)) {
-                if (isset($_POST["email"])) {
-                    $email = $_POST["email"];
-                }
-                if (isset($_POST["nome"])) {
-                    $nome = $_POST["nome"];
-                }
-                if (isset($_POST["pass"])) {
-                    $pass = $_POST["pass"];
-                }
-                if (!empty($email) && !empty($nome) && !empty($pass)) {
-                    if ($conn->connect_errno) {
-                        $code = $conn->connect_errno;
-                        $message = $conn->connect_error;
-                        echo "<p>Erro de conexão à base de dados: $code $message</p>";
-                    } else {
-                        $email = mysqli_real_escape_string($conn, $email);
+  <section class="before_navbar">
+    <?php
+    $validar = 0;
+    $email = "";
+    $nome = "";
+    $apelido = "";
+    $pass = "";
+    if (!empty($_POST)) {
+      if (isset($_POST["email"])) {
+        $email = $_POST["email"];
+      }
+      if (isset($_POST["nome"])) {
+        $nome = $_POST["nome"];
+      }
+      if (isset($_POST["pass"])) {
+        $pass = $_POST["pass"];
+      }
+      if (!empty($email) && !empty($nome) && !empty($pass)) {
+        if ($conn->connect_errno) {
+          $code = $conn->connect_errno;
+          $message = $conn->connect_error;
+          echo "<p>Erro de conexão à base de dados: $code $message</p>";
+        } else {
+          $email = mysqli_real_escape_string($conn, $email);
 
-                        $sql = "SELECT email FROM utilizador where email='$email'";
-                        $result = $conn->query($sql);
-                        
-                        if ($result && $result->num_rows) {
-                            echo "<p>Já existe o email indicado</p>";
-                        } else {
-                            $uploadOk = 1;
-                            if ($uploadOk) {
-                                $nome = mysqli_real_escape_string($conn, $nome);
-                                $pass = mysqli_real_escape_string($conn, $pass);
-                                $pass = hash('sha512', $pass);
-                                $sql = "insert into utilizador (Email, PrimeiroNome, Apelido, Pass) values ('$email','$nome', '$apelido', '$pass')";
-                                $result = $conn->query($sql);
-                                if ($result) {
-                                    echo "Dados registados com sucesso";
-                                    $validar = 1;
-                                } else {
-                                    $code = $conn->errno;
-                                    $message = $conn->error;
-                                    echo "<p>Erro ao inserir utilizador: $code $message</p>";
-                                }
-                            }
-                        }
-                        $conn->close();
-                    }
-                } else {
-                    echo "<p>Introduza valores para os campos obrigatórios</p>";
-                }
+          $sql = "SELECT email FROM utilizador where email='$email'";
+          $result = $conn->query($sql);
+
+          if ($result && $result->num_rows) {
+            echo "<p>Já existe o email indicado</p>";
+          } else {
+            $uploadOk = 1;
+            if ($uploadOk) {
+              $nome = mysqli_real_escape_string($conn, $nome);
+              $pass = mysqli_real_escape_string($conn, $pass);
+              $pass = hash('sha512', $pass);
+              $sql = "insert into utilizador (Email, PrimeiroNome, Apelido, Pass) values ('$email','$nome', '$apelido', '$pass')";
+              $result = $conn->query($sql);
+              if ($result) {
+                echo "Dados registados com sucesso";
+                $validar = 1;
+                header("Location: ../index.php");
+              } else {
+                $code = $conn->errno;
+                $message = $conn->error;
+                echo "<p>Erro ao inserir utilizador: $code $message</p>";
+              }
             }
-            if ($validar == 0) {
-                echo ' 
-        
-            
+          }
+          $conn->close();
+        }
+      } else {
+        echo "<p>Introduza valores para os campos obrigatórios</p>";
+      }
+    }
+    if ($validar == 0) {
+      echo '
         <div id="login">
         <div class="container">
         <div id="login-row" class="row justify-content-center align-items-center">
@@ -94,30 +93,42 @@ session_start();
         <div id="login-box" class="col-md-12">
         <h2>Novo utilizador</h2>
                     <form action="#" method="post" id="insertUser" enctype="multipart/form-data">
+                    <div class="form-group">
                       <label for="idEmail">Email: </label>
                       <input type="email" name="email" id="idEmail" required value="' . $email . '">*<br>
+                      </div>
+                      <div class="form-group">
                       <label for="idNome">Nome: </label>
                       <input type="text" name="nome" id="idNome" required value="' . $nome . '">*<br>
+                      </div>
+                      <div class="form-group">
                       <label for="idApelido">Apelido</label>
                       <input type="text" name="apelido" id="idApelido" required value="' . $apelido . '">*<br>
+                      </div>
+                      <div class="form-group">
+
                       <label for="idPass">Password: </label>
                       <input type="password" name="pass" id="idPass" required >*<br>
-                
+                      </div>
                       <br>
                       <br>
+                      <div class="form-group">
                       <input type="submit" value="Inserir" id="btSubmit">
                       <input type="reset" value="Limpar" id="btReset">
+                      </div>
                      </form>
+                     </div>
+                     </div>
+                     </div>
+                     </div>
+                     </div>
         ';
-            }
-            else{
-              header("Location: index.php");
-            }
-            ?>
+    }
+    ?>
 
-        </section>
+  </section>
 
-        <footer class="page-footer font-small unique-color-dark footer" style="background-color: #30373f;"><br>
+  <footer class="page-footer font-small unique-color-dark footer" style="background-color: #30373f;"><br>
     <div class="container text-center text-md-left mt-5">
 
       <div class="row mt-3">
@@ -161,14 +172,14 @@ session_start();
 
       </div>
 
-	  
-	  <div class="footer-copyright text-center font-weight-bold" style="color: white;font-size: 11t;">© 2020 DotLog
-    </div>
-    </div>
-    
-  </footer>
-  
 
-  </body>
+      <div class="footer-copyright text-center font-weight-bold" style="color: white;font-size: 11t;">© 2020 DotLog
+      </div>
+    </div>
+
+  </footer>
+
+
+</body>
 
 </html>
