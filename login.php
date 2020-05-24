@@ -60,7 +60,8 @@ session_start();
 
               $_SESSION['userpname'] = $row['PrimeiroNome'];
               $_SESSION['useraname'] = $row['Apelido'];
-              echo '<p>Login completo</p>';
+              //Falta redirecionar para index!!
+
             } else {
               echo '<p>pass errada 2</p>';
             }

@@ -70,7 +70,8 @@ session_start();
               if ($result) {
                 echo "Dados registados com sucesso";
                 $validar = 1;
-                header("Location: ../index.php");
+                header("Location: index.php");
+                exit();
               } else {
                 $code = $conn->errno;
                 $message = $conn->error;
