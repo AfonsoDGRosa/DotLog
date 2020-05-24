@@ -1,6 +1,6 @@
 <?php
-session_start();
 
+session_start();
 ?>
 
 <!DOCTYPE html>
@@ -21,83 +21,90 @@ session_start();
   <script src="scripts/jquery-3.4.1.js"></script>
   <script src="scripts/js/bootstrap.min.js"></script>
   <script src="scripts/js/bootstrap.bundle.min.js"></script>
-  
+
   <!--<script src="scripts/simple.js"></script>-->
 
   <?php
-    require_once "navbar.php";
-    require "connectdb.php";
-	?>
+  require_once "navbar.php";
+  require "connectdb.php";
 
-<section class="before_navbar">
-            <?php
-            $validar = 0;
-            $email = "";
-            $pass = "";
-            if (!empty($_POST)) {
-                if (isset($_POST["email"])) {
-                    $email = $_POST["email"];
-                }
-                if (isset($_POST["pass"])) {
-                    $pass = $_POST["pass"];
-                }
-                if (!empty($email) && !empty($pass)) {
-                    if ($conn->connect_errno) {
-                        $code = $conn->connect_errno;
-                        $message = $conn->connect_error;
-                        echo "<p>Erro de conexão à base de dados: $code $message</p>";
-                    } else {
-                        $email = mysqli_real_escape_string($conn, $email);
-
-                        $sql = "SELECT email FROM utilizador where email='$email'";
-                        $result = $conn->query($sql);
-                        
-                        if ($result && $result->num_rows) {
-                            echo "<p>Já existe o email indicado</p>";
-                        } else {
-                            $uploadOk = 1;
-                        }
-                        $conn->close();
-                    }
-                } else {
-                    echo "<p>Introduza valores para os campos obrigatórios</p>";
-                }
-            }
-            if ($validar == 0) {
-                echo ' 
-         <div id="login">
-        <div class="container">
-            <div id="login-row" class="row justify-content-center align-items-center">
-                <div id="login-column" class="col-md-6">
-                    <div id="login-box" class="col-md-12">
-                        <form id="login-form" class="form" action="" method="post">
-                        <img id="login-img" src="images/sign_in.png" class="signin">
-                            <div class="form-group">
-                                <label for="usermail" class="text-info">E-mail:</label><br>
-                                <input type="text" name="email" id="usermail" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="password" class="text-info">Password:</label><br>
-                                <input type="password" name="password" id="password" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <br>
-                                <input type="submit" name="submit" class="btn btn-info btn-md" value="submit">
-                            </div>
-                            <div id="register-link" class="text-right">
-                                <a href="signup.php" class="text-info">Register here</a>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-  ';          
-  }
   ?>
-</section>
 
+  <section class="before_navbar">
+    <?php
+    $validar = 0;
+    $email = "";
+    $pass = "";
+    if (isset($_POST['login-submit'])) {
+
+      $email = $_POST['usermail'];
+      $pass = $_POST['pass'];
+
+      if (empty($email) || empty($pass)) {
+        echo '<p>Email ou Password vazios</p>';
+      } else {
+        $sql = "SELECT * FROM utilizador WHERE Email=?;";
+        $stmt = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+          echo '<p>Erro de conexão à base de dados</p>';
+        } else {
+          mysqli_stmt_bind_param($stmt, "s", $email);
+          mysqli_stmt_execute($stmt);
+          $result = mysqli_stmt_get_result($stmt);
+          if ($row = mysqli_fetch_assoc($result)) {
+            $passCheck = hash('sha512', $pass) == $row['Pass'];
+            if ($passCheck == false) {
+              echo '<p>Password Errada</p>';
+            } else if ($passCheck == true) {
+              $validar = 1;
+
+              $_SESSION['userpname'] = $row['PrimeiroNome'];
+              $_SESSION['useraname'] = $row['Apelido'];
+              header("Location: index.php");
+
+            } else {
+              echo '<p>Password Errada</p>';
+            }
+          } else {
+
+            echo '<p>Email errado!!</p>';
+          }
+        }
+      }
+    } else if ($validar == 0) {
+      echo '
+    <div id="login">
+    <div class="container">
+      <div id="login-row" class="row justify-content-center align-items-center">
+        <div id="login-column" class="col-md-6">
+          <div id="login-box" class="col-md-12">
+            <form id="login-form" class="form" action="" method="post">
+              <img id="login-img" src="images/sign_in.png" class="signin">
+              <div class="form-group">
+                <label for="usermail" class="text-info">E-mail:</label><br>
+                <input type="email" name="usermail" id="usermail" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="password" class="text-info">Password:</label><br>
+                <input type="password" name="pass" id="password" class="form-control">
+              </div>
+              <div class="form-group">
+                <br>
+                <input type="submit" name="login-submit" class="btn btn-info btn-md" value="submit">
+              </div>
+              <div id="register-link" class="text-right">
+                <a href="signup.php" class="text-info">Register here</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>';
+    }
+
+    ?>
+  </section>
   <footer class="page-footer font-small unique-color-dark footer" style="background-color: #30373f;"><br>
     <div class="container text-center text-md-left mt-5">
 
@@ -142,14 +149,14 @@ session_start();
 
       </div>
 
-	  
-	  <div class="footer-copyright text-center font-weight-bold" style="color: white;font-size: 11t;">© 2020 DotLog
-    </div>
-    </div>
-    
-  </footer>
-  
 
-  </body>
+      <div class="footer-copyright text-center font-weight-bold" style="color: white;font-size: 11t;">© 2020 DotLog
+      </div>
+    </div>
+
+  </footer>
+
+
+</body>
 
 </html>
