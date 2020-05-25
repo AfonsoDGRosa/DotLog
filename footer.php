@@ -1,37 +1,5 @@
-<?php
-session_start();
-
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DotLog</title>
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="css/simple.css">
-  <link rel="stylesheet" type="text/css" href="css/inicial.css">
-
-</head>
-
-<body>
-  <script src="scripts/jquery-3.4.1.js"></script>
-  <script src="scripts/js/bootstrap.min.js"></script>
-  <script src="scripts/js/bootstrap.bundle.min.js"></script>
-  
-  <!--<script src="scripts/simple.js"></script>-->
-
-  <?php
-  require_once "navbar.php";
-  require "connectdb.php";
-
-  ?>
-
-
-  <footer class="page-footer font-small unique-color-dark footer" style="background-color: #30373f;"><br>
-    <div class="container text-center text-md-left mt-5">
+<footer class="page-footer font-small unique-color-dark footer" style="background-color: #30373f;">
+    <div class="container text-center text-md-left mt-5" style="padding-top:25px">
 
       <div class="row mt-3">
 
@@ -75,13 +43,8 @@ session_start();
       </div>
 
 	  
-	  <div class="footer-copyright text-center font-weight-bold" style="color: white;font-size: 11t;">© 2020 DotLog
-    </div>
-    </div>
+	<div class="footer-copyright text-center font-weight-bold" style="color: white;font-size: 11t;">© 2020 DotLog</div>
     
-  </footer>
-  
-
-  </body>
-
-</html>
+	</div>
+    
+</footer>
