@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 ?>
 
@@ -58,12 +57,19 @@ session_start();
             } else if ($passCheck == true) {
               $validar = 1;
 
-              $_SESSION['utilizador_id'] = $row['UtilizadorId'];
               $_SESSION['userpname'] = $row['PrimeiroNome'];
               $_SESSION['useraname'] = $row['Apelido'];
-
-              header("Location: index.php");
-
+			  $_SESSION['utilizador_id'] = $row['UtilizadorID'];
+			  
+			  $_SESSION['authenticated'] = true;
+			  
+			  if ($row['Perfil'] == "Administrador") {
+				header("Location: listUser.php");
+			  } else {
+				header("Location: index.php");  
+			  }
+			  exit(0);
+			  
             } else {
               echo '<p>Password Errada</p>';
             }

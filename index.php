@@ -33,14 +33,14 @@ session_start();
   <div class="carousel-inner">
     <div class="carousel-item active">
 		
-		<img class="d-block w-100" src="images/Homepage/Slider_b.png" alt="First slide">
+		<img class="d-block w-100 slider_img" src="images/Homepage/Slider_b.png" alt="First slide">
 		
     </div>
     <div class="carousel-item">
-		<img class="d-block w-100" src="images/Homepage/Slider_a.png" alt="Second slide">
+		<img class="d-block w-100 slider_img" src="images/Homepage/Slider_a.png" alt="Second slide">
     </div>
     <div class="carousel-item">
-		<img class="d-block w-100" src="images/Homepage/Slider_b.png" alt="Third slide">
+		<img class="d-block w-100 slider_img" src="images/Homepage/Slider_b.png" alt="Third slide">
     </div>
   </div>
   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -56,7 +56,7 @@ session_start();
 
 <div class=".container">
 <br><br><br>
-<h1 class="text-center" style="font-size:40pt; font-family:oxanium">Produtos Populares</h1>
+<h1 class="text-center" style="font-size:40pt; font-family:oxanium">Produtos Úteis</h1>
 <br><br><br>
 <div class="row justify-content-center">
 	
@@ -95,7 +95,7 @@ session_start();
 				?>
 				
 				<div class="card text-center text-dark servicos_lista servicos_card" style="width: 18rem;">
-					<img src="images/Homepage/POS.png" class="card-img-top">
+					<img src=<?=$row['Imagem']?> class="card-img-top">
 					<div class="card-body">
 						<h5 class="card-title"><?= $row['Nome'] ?></h5>
 						<br>
@@ -122,35 +122,21 @@ session_start();
 		
 	?>
 	
-	<!--<div class="card text-center text-dark servicos_card" style="width: 18rem;">
-		<img src="images/Homepage/POS.png" class="card-img-top">
-		<div class="card-body">
-			<h5 class="card-title">Rolo de Papel<br>(Grande)</h5>
-			<br>
-
-			<p class="card-text">Rolo de papel de tamanho grande.</p>
-			<a href="servicos.php" class="btn btn-primary btn-light servico_button">Saber Mais</a>
-		</div>
-	</div>
-	
-	<div class="card text-center text-dark servicos_lista servicos_card" style="width: 18rem;">
-		<img src="images/Homepage/POS.png" class="card-img-top">
-		<div class="card-body">
-			<h5 class="card-title">Terminal Móvel - Zebra MT2070</h5>
-			<br>
-			<p class="card-text">Um terminal móvel de 320x240 píxeis (cinzento).</p>
-			<a href="servicos.php" class="btn btn-primary btn-light servico_button">Saber Mais</a>
-		</div>
-	</div>-->
+	<?php
+		$card1->free();
+		$card2->free();
+		$card3->free();
+		
+		$conn->close();
+	?>
 	
 </div>
 <br><br><br>
 </div>
   
 <?php
-  require_once "footer.php";
-
-  ?>
+	require_once "footer.php";
+?>
   
 </body>
 

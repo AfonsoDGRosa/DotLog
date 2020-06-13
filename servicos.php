@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -70,25 +70,14 @@
 									
 									<div class="Lista">
 										<h2><?=$row['Descricao']?></h2>
-										<!--<p><?=$row['Detalhes']?></p>-->
-										<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia omnis excepturi voluptatibus id iusto? Atque earum nobis eligendi architecto inventore, voluptate minima rem et nemo quo placeat illo voluptatum quas!</p>
-										<a href="forum.php">Agendar Serviços</a>
+										<?=$row['Detalhes']?></p>
+										
+										<a href="agendar_servicos.php">Agendar Serviços</a>
 										<!--<p><?=$cont?></p>-->
 									</div>
 									
 									<?php
 								}
-								
-								//for ($i = 0;$i < $total_servicos;$i++) {
-									//echo "yatta desu ne!!!! UWU<br>";
-									
-
-									
-									//<div class="Lista">
-									//	<h2>Assitencia Por Telefone</h2>
-									//	<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia omnis excepturi voluptatibus id iusto? Atque earum nobis eligendi architecto inventore, voluptate minima rem et nemo quo placeat illo voluptatum quas!</p>
-									//</div>
-								//}
 								
 							}
 							

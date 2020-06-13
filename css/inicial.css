@@ -68,7 +68,6 @@ body{
 	border-color:rgba(0,128,195,1);
 	/*background-color: rgba(0,190,255,0.1);*/
 	width: 19rem;
-	border-width:2px;
 	cursor: pointer;	
 }
 
@@ -76,6 +75,8 @@ body{
 	margin-left:2%;
 	margin-right:2%;
 }
+
+
 
 .slide_captions{
 	/*padding-bottom: 5%;*/
@@ -104,6 +105,10 @@ body{
         transform: translatey(70px);
             
 	}
+}
+
+.card-img-top{
+	height:250px;
 }
 
 .POS{   

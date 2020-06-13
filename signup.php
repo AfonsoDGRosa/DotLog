@@ -66,7 +66,8 @@ session_start();
               $pass = mysqli_real_escape_string($conn, $pass);
               $apelido = mysqli_real_escape_string($conn, $apelido);
               $pass = hash('sha512', $pass);
-              $sql = "insert into utilizador (Email, PrimeiroNome, Apelido, Pass) values ('$email','$nome', '$apelido', '$pass')";
+              //$sql = "insert into utilizador (Email, PrimeiroNome, Apelido, Pass) values ('$email','$nome', '$apelido', '$pass')";
+			  $sql = "insert into utilizador values(null,'$nome','$apelido','Cliente','$email','$pass',null)";
               $result = $conn->query($sql);
               if ($result) {
                 echo "Dados registados com sucesso";
@@ -125,6 +126,17 @@ session_start();
                      </div>
         ';
     }
+	
+	/*$query_count = "select count(*) as total_users from utilizador";
+	$result_count = $conn->query($query_count);
+	
+	if ($result_count) {
+		$row = $result_count->fetch_assoc()
+		?><p>Utilizadores Totais: <?=$row['total_users']?></p><?php
+	}*/
+	
+	
+	
     ?>
 
   </section>

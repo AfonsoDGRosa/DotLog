@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +16,6 @@
 
 <body>
   <script src="scripts/jquery-3.4.1.js"></script>
-  <script src="scripts/forum.js"></script>
   <script src="scripts/js/bootstrap.min.js"></script>
   <script src="scripts/js/bootstrap.bundle.min.js"></script>
   
@@ -31,10 +30,10 @@
 		Caso tenha algum problema ou dúvida, publique aqui em baixo no forum.</p>
 		<br>
 		<br>
-		<div class="forum_filters">
-			<a class="forum_filters_button">trove</a>
-			<a class="forum_filters_button">not trove</a>
-		</div>
+		<!--<div class="forum_filters">
+			<a class="forum_filters_button">filter1</a>
+			<a class="forum_filters_button">filter2</a>
+		</div>-->
 	</div>
 	
 	<?php
@@ -66,7 +65,7 @@
 					
 						<div class="container forum_post">
 							<img src="images/sign_in.png">
-							<h2 style="font-weight:450"><?=$row['Assunto']?></h2>
+							<a style="text-decoration:none" href="forum_post.php?postID=<?php echo htmlspecialchars($row['PostID']); ?>"><h2 style="font-weight:450;color:black;"><?=$row['Assunto']?></h2></a>
 							<p class="forum_message"><?=$row['Mensagem']?></</p>
 							
 							<div class="post_more_info">
@@ -90,59 +89,12 @@
 	?>
 	
 
-	
+	<br>
 	
   
-  <footer class="page-footer font-small unique-color-dark footer" style="background-color: #30373f;"><br>
-    <div class="container text-center text-md-left mt-5">
-
-      <div class="row mt-3">
-
-        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-
-          <h6 class="text-uppercase font-weight-bold">Dotlog</h6>
-          <hr class="white mb-4 mt-0 d-inline-block mx-auto" style="width: 75px;border-top: 1px solid rgb(255,255,255)">
-          <p>lorem ipsum</p>
-
-        </div>
-
-        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-
-          <h6 class="text-uppercase font-weight-bold">Contactos</h6>
-          <hr class="white mb-4 mt-0 d-inline-block mx-auto" style="width: 110px;border-top: 1px solid rgb(255,255,255)">
-          <p>Leiria</p>
-          <p>dotlog@gmail.com</p>
-          <p>923 424 112</p>
-          <p>08:00 - 21:00</p>
-        </div>
-
-        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-
-          <h6 class="text-uppercase font-weight-bold">Links Rapidos</h6>
-          <hr class="white mb-4 mt-0 d-inline-block mx-auto" style="width: 150px;border-top: 1px solid rgb(255,255,255)">
-          <p>
-            <a href="#!">Home</a>
-          </p>
-          <p>
-            <a href="#!">Serviços</a>
-          </p>
-          <p>
-            <a href="#!">Sobre</a>
-          </p>
-          <p>
-            <a href="#!">Contactos</a>
-          </p>
-
-        </div>
-
-      </div>
-
-	  
-	  <div class="footer-copyright text-center font-weight-bold" style="color: white;font-size: 11t;">© 2020 DotLog
-    </div>
-    </div>
-    
-  </footer>
+  <?php
+	require_once "footer.php";
+  ?>
   
 </body>
 

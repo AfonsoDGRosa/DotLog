@@ -12,7 +12,7 @@ $produto = array_key_exists("produto", $_GET) ? $_GET["produto"] : "";
   <title>DotLog</title>
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="css/simple.css">
-  <link rel="stylesheet" type="text/css" href="css/inicial.css">
+  <link rel="stylesheet" type="text/css" href="css/produto.css">
 
 </head>
 
@@ -39,12 +39,18 @@ $produto = array_key_exists("produto", $_GET) ? $_GET["produto"] : "";
 
   if($card1->num_rows == 1) { 
     $row = $card1->fetch_assoc();
-    echo '<div>
-    <img src="images/sign_in.png" style="width: 250px; margin-left: 15%; float: left">  
+    echo '<div class="produto_box">
+    <img src='.$row['Imagem'].' style="width: 250px; margin-left: 15%; float: left">  
       <div>
         <h2 class="card-title">' .$produto. '</h2>
         <p style:"margin-bottom:25%">'.$row['Descricao'].'</p>
       </div> 
+      <br><br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
       <br>
       <br>
       <br>

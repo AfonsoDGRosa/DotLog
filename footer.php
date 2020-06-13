@@ -26,16 +26,16 @@
           <h6 class="text-uppercase font-weight-bold">Links Rapidos</h6>
           <hr class="white mb-4 mt-0 d-inline-block mx-auto" style="width: 150px;border-top: 1px solid rgb(255,255,255)">
           <p>
-            <a href="#!">Home</a>
+            <a href="index.php">Home</a>
           </p>
           <p>
-            <a href="#!">Serviços</a>
+            <a href="servicos.php">Serviços</a>
           </p>
           <p>
-            <a href="#!">Sobre</a>
+            <a href="sobre.php">Sobre</a>
           </p>
           <p>
-            <a href="#!">Contactos</a>
+            <a href="contactos.php">Contactos</a>
           </p>
 
         </div>
