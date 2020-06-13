@@ -13,10 +13,10 @@
     <form class="form-inline my-2 my-lg-0">
       <ul class="navbar-nav mr-auto opcao">
         <li class="nav-item opcao">
-          <a class="nav-link" href="sobre.html">Sobre</a>
+          <a class="nav-link" href="sobre.php">Sobre</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link opcao" href="contactos.html">Contactos</a>
+          <a class="nav-link opcao" href="contactos.php">Contactos</a>
         </li>
         <li class="nav-item">
           <a class="nav-link opcao" href="forum.php">Forum</a>
@@ -26,7 +26,7 @@
             Produtos
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item opcao" href="hardware.php">Hardware</a>
+            <a class="dropdown-item opcao" href="#">Hardware</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item opcao" href="#">Software</a>
             <div class="dropdown-divider"></div>
@@ -48,15 +48,14 @@
 <p style="justify-content:normal;color:rgb(54, 54, 54);padding:.25rem 1.5rem">
       ' . $_SESSION["userpname"] . '    
   <br>
-  SilvaInc
+  <a style="padding-left:0px;" class="dropdown-item opcao" href="profile.php">Perfil</a>
 </p>
 <div class="dropdown-divider"></div>
       <a class="dropdown-item opcao" href="logout.php">Sign Out</a>
       
   </li>';
         } else {
-          echo '<a class="dropdown-item"  href="login.php">Login</a>
-    <a class="dropdown-item opcao"  href="signup.php">Criar Conta</a>';
+          echo '<li class="nav-item dropdown"><a class="nav-link opcao"  href="login.php">Login</a></li>';
         }
 
         ?>
