@@ -1,0 +1,47 @@
+#wrapper{
+	display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+.list-group {
+	width: 13rem;
+}
+
+.sidebar_padding{
+	padding:0.875rem 1.25rem;
+	font-size:15pt;
+}
+
+.dark_background{
+	background-color:rgb(51,51,51);
+	color:white;
+}
+
+.dark_background2{
+	background-color:rgb(61,61,61);
+	color:white;
+}
+
+.mainsidebar{
+	min-height:100vh; width:14rem
+}
+
+.row_image{
+	width:32px;
+	height:32px;
+}
+
+.mytable{
+	padding:15px;
+	background-color: white;
+	border-style:solid;
+	border-radius: 0;
+	border-width:1px;
+	border-color:rgba(180,180,180,1);
+}
+
+table.dataTable tbody>tr.select, table.dataTable tbody>tr>.select{
+	background-color:rgba(0,0,0,.05);
+	font-weight:bold;
+}
