@@ -26,6 +26,7 @@
           <h6 class="text-uppercase font-weight-bold">Links Rapidos</h6>
           <hr class="white mb-4 mt-0 d-inline-block mx-auto" style="width: 150px;border-top: 1px solid rgb(255,255,255)">
           <p>
+<<<<<<< HEAD
             <a href="index.php">Home</a>
           </p>
           <p>
@@ -36,6 +37,18 @@
           </p>
           <p>
             <a href="contactos.php">Contactos</a>
+=======
+            <a href="#!">Home</a>
+          </p>
+          <p>
+            <a href="#!">Serviços</a>
+          </p>
+          <p>
+            <a href="#!">Sobre</a>
+          </p>
+          <p>
+            <a href="#!">Contactos</a>
+>>>>>>> master
           </p>
 
         </div>
