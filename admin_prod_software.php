@@ -18,7 +18,7 @@ if ($conn->connect_errno) {
     $message = $conn->connect_error;
     $msg_erro = "Falha na ligação a base de dados";
 } else {
-	$stmt = "SELECT * FROM produto WHERE CategoriaID =1";
+	$stmt = "SELECT * FROM produto WHERE CategoriaID =2";
 	
     $criterio = "%$pesquisa%";
 
@@ -79,7 +79,7 @@ if ($conn->connect_errno) {
 				$message = $conn->connect_error;
 			} else {
 			if (isset($_POST['add_item'])){
-				$sql = "INSERT into produto values(null,'".$_POST["recipient-nome"]."','".$_POST["recipient-img"]."','".$_POST["recipient-descr"]."','".$_POST["recipient-preco"]."',1,1);";
+				$sql = "INSERT into produto values(null,'".$_POST["recipient-nome"]."','".$_POST["recipient-img"]."','".$_POST["recipient-descr"]."','".$_POST["recipient-preco"]."',2,1);";
 				if (!empty($descricao) && !empty($nome) && !empty($preco)) {
 					
 					
@@ -94,7 +94,7 @@ if ($conn->connect_errno) {
 				$sql = "delete from produto WHERE ProdutoID='".$_SESSION["Value_Produto"]."';";
 				$delete = $conn->query($sql);
 				unset($_SESSION["Value_Produto"]);
-				unset($_SESSION["Action_Produto"]);
+				unset($_SESSION["Action_HProduto"]);
 				
 				header("Location: redirect.php");
 			} elseif (isset($_POST['edit_item'])) {
