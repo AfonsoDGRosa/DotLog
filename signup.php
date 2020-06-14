@@ -66,8 +66,12 @@ session_start();
               $pass = mysqli_real_escape_string($conn, $pass);
               $apelido = mysqli_real_escape_string($conn, $apelido);
               $pass = hash('sha512', $pass);
+<<<<<<< HEAD
               //$sql = "insert into utilizador (Email, PrimeiroNome, Apelido, Pass) values ('$email','$nome', '$apelido', '$pass')";
 			  $sql = "insert into utilizador values(null,'$nome','$apelido','Cliente','$email','$pass',null)";
+=======
+              $sql = "insert into utilizador (Email, PrimeiroNome, Apelido, Pass) values ('$email','$nome', '$apelido', '$pass')";
+>>>>>>> master
               $result = $conn->query($sql);
               if ($result) {
                 echo "Dados registados com sucesso";
@@ -126,6 +130,7 @@ session_start();
                      </div>
         ';
     }
+<<<<<<< HEAD
 	
 	/*$query_count = "select count(*) as total_users from utilizador";
 	$result_count = $conn->query($query_count);
@@ -141,6 +146,12 @@ session_start();
 
   </section>
 
+=======
+    ?>
+
+  </section>
+
+>>>>>>> master
   <?php
   require_once "footer.php";
 

@@ -39,18 +39,26 @@ $produto = array_key_exists("produto", $_GET) ? $_GET["produto"] : "";
 
   if($card1->num_rows == 1) { 
     $row = $card1->fetch_assoc();
+<<<<<<< HEAD
     echo '<div class="produto_box">
     <img src='.$row['Imagem'].' style="width: 250px; margin-left: 15%; float: left">  
+=======
+    echo '<div>
+    <img src="images/sign_in.png" style="width: 250px; margin-left: 15%; float: left">  
+>>>>>>> master
       <div>
         <h2 class="card-title">' .$produto. '</h2>
         <p style:"margin-bottom:25%">'.$row['Descricao'].'</p>
       </div> 
+<<<<<<< HEAD
       <br><br>
       <br>
       <br>
       <br>
       <br>
       <br>
+=======
+>>>>>>> master
       <br>
       <br>
       <br>

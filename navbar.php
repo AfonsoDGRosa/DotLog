@@ -13,10 +13,17 @@
     <form class="form-inline my-2 my-lg-0">
       <ul class="navbar-nav mr-auto opcao">
         <li class="nav-item opcao">
+<<<<<<< HEAD
           <a class="nav-link" href="sobre.php">Sobre</a>
         </li>
         <li class="nav-item">
           <a class="nav-link opcao" href="contactos.php">Contactos</a>
+=======
+          <a class="nav-link" href="sobre.html">Sobre</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link opcao" href="contactos.html">Contactos</a>
+>>>>>>> master
         </li>
         <li class="nav-item">
           <a class="nav-link opcao" href="forum.php">Forum</a>
@@ -48,14 +55,23 @@
 <p style="justify-content:normal;color:rgb(54, 54, 54);padding:.25rem 1.5rem">
       ' . $_SESSION["userpname"] . '    
   <br>
+<<<<<<< HEAD
   <a style="padding-left:0px;" class="dropdown-item opcao" href="profile.php">Perfil</a>
+=======
+  SilvaInc
+>>>>>>> master
 </p>
 <div class="dropdown-divider"></div>
       <a class="dropdown-item opcao" href="logout.php">Sign Out</a>
       
   </li>';
         } else {
+<<<<<<< HEAD
           echo '<li class="nav-item dropdown"><a class="nav-link opcao"  href="login.php">Login</a></li>';
+=======
+          echo '<a class="dropdown-item"  href="login.php">Login</a>
+    <a class="dropdown-item opcao"  href="signup.php">Criar Conta</a>';
+>>>>>>> master
         }
 
         ?>
