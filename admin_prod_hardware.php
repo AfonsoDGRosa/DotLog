@@ -6,9 +6,9 @@ if (!isset($_SESSION["authenticated"])) {
     exit(0);
 }
 
-$Email = array_key_exists("Email", $_GET) ? $_GET["Email"] : "";
+$ProdId = array_key_exists("ProdutoId", $_GET) ? $_GET["ProdutoId"] : "";
 
-$utilizadores = array();
+$produtos = array();
 $pesquisa = array_key_exists("pesquisa", $_GET) ? $_GET["pesquisa"] : "";
 
 require_once "connectdb.php";
@@ -18,23 +18,21 @@ if ($conn->connect_errno) {
     $message = $conn->connect_error;
     $msg_erro = "Falha na ligação a base de dados";
 } else {
-    //$stmt = $conn->prepare("SELECT * FROM utilizador");
-    //$stmt = $conn->prepare("SELECT * FROM utilizador");
-	$stmt = "SELECT * FROM utilizador";
+	$stmt = "SELECT * FROM produto WHERE CategoriaID =1";
 	
     $criterio = "%$pesquisa%";
-    //$stmt->bind_param('s', $criterio);
 
-    //$result = $stmt->execute();
 	$result = $conn->query($stmt);
     if ($result) {
 
         while ($row = $result->fetch_assoc()) {
-            $nome = htmlspecialchars($row['PrimeiroNome']);
-            $email = htmlspecialchars($row['Email']);
-            $foto = htmlspecialchars($row['Imagem']);
-            $utilizador = array('nome' => $nome, 'email' => $email, 'foto' => $foto,);
-            $utilizadores[] = $utilizador;
+						$prodid = htmlspecialchars($row['ProdutoID']);
+            $nome = htmlspecialchars($row['Nome']);
+            $descricao = htmlspecialchars($row['Descricao']);
+						$foto = htmlspecialchars($row['Imagem']);
+						$preco = htmlspecialchars($row['Preco']);
+            $produto = array('produtoid' =>$prodid ,'nome' => $nome, 'descricao' => $descricao, 'foto' => $foto, 'preco' => $preco);
+            $produtos[] = $produto;
         }
     } else {
         $code = $stmt->errno;
@@ -81,25 +79,23 @@ if ($conn->connect_errno) {
 				$message = $conn->connect_error;
 			} else {
 			if (isset($_POST['add_item'])){
-				$sql = "insert into utilizador values(null,'".$_POST["recipient-nome"]."','Batista','Cliente','".$_POST["recipient-email"]."','123',null)";
+				$sql = "insert into produto values(null,'".$_POST["recipient-nome"]."',".$_POST["recipient-img"].",".$_POST["recipient-descr"]."',".$_POST["recipient-preco"].",1, 1)";
 				$add = $conn->query($sql);
 				
 				header("Location: redirect.php");
 			} elseif (isset($_POST['delete_item'])) {
-				$sql = "delete from utilizador WHERE Email='".$_SESSION["Value_Utilizador"]."';";
+				$sql = "delete from produto WHERE ProdutoID='".$_SESSION["Value_Hardware"]."';";
 				$delete = $conn->query($sql);
-				//$sql = "insert into utilizador values(null,'hey','hey','Cliente','hey2@gmail.com','123',null)";
-				//$add = $conn->query($sql);
-				unset($_SESSION["Value_Utilizador"]);
-				unset($_SESSION["Action_Utilizador"]);
+				unset($_SESSION["Value_Hardware"]);
+				unset($_SESSION["Action_Hardware"]);
 				
 				header("Location: redirect.php");
 			} elseif (isset($_POST['edit_item'])) {
-				$sql = "UPDATE utilizador SET PrimeiroNome = '".$_POST["edit_nome"]."', Email = '".$_POST["edit_email"]."' WHERE utilizador.Email = '".$_SESSION["Value_Utilizador"]."';";
+				$sql = "UPDATE produto SET Nome = '".$_POST["edit_nome"]."', Preco = '".$_POST["edit_preco"]."' WHERE produto.ProdutoID = '".$_SESSION["Value_Hardware"]."';";
 				$edit = $conn->query($sql);
 				
-				unset($_SESSION["Value_Utilizador"]);
-				unset($_SESSION["Action_Utilizador"]);
+				unset($_SESSION["Value_Hardware"]);
+				unset($_SESSION["Action_Hardware"]);
 				
 				header("Location: redirect.php");
 			}
@@ -114,8 +110,8 @@ if ($conn->connect_errno) {
 			$message = $conn->connect_error;
 		} else {
 		
-		if (isset($_SESSION["Action_Utilizador"])) {
-			$sql = "select * from utilizador where Email = '".$_SESSION["Value_Utilizador"]."'";
+		if (isset($_SESSION["Action_Hardware"])) {
+			$sql = "select * from produto where ProdutoID = '".$_SESSION["Value_Hardware"]."'";
 			$search = $conn->query($sql);
 			
 			if ($sql) {
@@ -123,8 +119,8 @@ if ($conn->connect_errno) {
 					$row = $search->fetch_assoc();
 					
 					
-					$EditarEmail = $row['Email'];
-					$EditarNome = $row['PrimeiroNome'];
+					$EditarPreco = $row['Preco'];
+					$EditarNome = $row['Nome'];
 					
 				}
 			} else {
@@ -137,7 +133,7 @@ if ($conn->connect_errno) {
     $search->close();
 			
 			
-			if ($_SESSION["Action_Utilizador"] == "Delete") {
+			if ($_SESSION["Action_Hardware"] == "Delete") {
 				?>
 				<script type="text/javascript">
 					$(window).on('load',function(){
@@ -145,7 +141,7 @@ if ($conn->connect_errno) {
 					});
 				</script>
 				<?php
-			} elseif ($_SESSION["Action_Utilizador"] == "Edit") {
+			} elseif ($_SESSION["Action_Hardware"] == "Edit") {
 				?>
 					<script type="text/javascript">
 						$(window).on('load',function(){
@@ -183,14 +179,15 @@ if ($conn->connect_errno) {
 
     <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
       <div class="card-body" style="padding:0px">
-        <a href="admin_prod_hardware" class="list-group-item list-group-item-action dark_background">Hardware</a> 
+        <a href="admin_utilizadores" class="list-group-item list-group-item-action dark_background">Hardware</a> 
 		<a href="#" class="list-group-item list-group-item-action dark_background">Software</a>
 		<a href="#" class="list-group-item list-group-item-action dark_background">Consumiveis</a>
       </div>
     </div>
   </div>
   </div>
-		
+				
+				
 				<a href="#" class="list-group-item list-group-item-action dark_background">Serviços Agendados</a>
 			
 		</div>
@@ -199,10 +196,7 @@ if ($conn->connect_errno) {
 		
 		<div style="min-height:100vh">
 			
-			<nav class="navbar navbar-expand-lg border-bottom sidebar_padding dark_background2">
-				<div>Utilizadores</div>
-				<div style="float:right"><img class="row_image" src="images/sign_in.png" alt="foto">Alexandre Gregorio</div>
-			</nav>
+		
 			
 			<div class="container-fluid before_navbar">
 				<h1>Bem Vindo Ao BackOffice</h1>
@@ -215,7 +209,7 @@ if ($conn->connect_errno) {
 				<div class="modal-dialog" role="document">
 				<div class="modal-content">
 				<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Adicionar Utilizador</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Adicionar Produto</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 				<span aria-hidden="true">&times;</span>
 				</button>
@@ -227,13 +221,18 @@ if ($conn->connect_errno) {
 				
 				<form action="" method="post">
 				<div class="form-group">
-				<label for="recipient-name" class="col-form-label">Email:</label>
-				<input type="text" class="form-control" id="recipient-email" name="recipient-email">
+				<label for="recipient-name" class="col-form-label">Descricao</label>
+				<input type="text" class="form-control" id="recipient-descr" name="recipient-descr">
 				</div>
 				
 				<div class="form-group">
 				<label for="recipient-name" class="col-form-label">Nome:</label>
 				<input type="text" class="form-control" id="recipient-nome" name="recipient-nome">
+				</div>
+
+				<div class="form-group">
+				<label for="recipient-preco" class="col-form-label">Preco:</label>
+				<input type="text" class="form-control" id="recipient-preco" name="recipient-preco">
 				</div>
 				
 				<div class="form-group">
@@ -254,8 +253,9 @@ if ($conn->connect_errno) {
 					<table id="mydatatable" class="table table-bordered mydatatable" style="width:100%">
 						<thead>
 							<tr>
-								<th>Email</th>
+								<th>Descricao</th>
 								<th>Nome</th>
+								<th>Preco</th>
 								<th>Foto</th>
 								<th>Ações</th>
 								
@@ -263,19 +263,19 @@ if ($conn->connect_errno) {
 						</thead>
 						
 						<tbody>
-							 <?php foreach ($utilizadores as $um_utilizador) { ?>
+							 <?php foreach ($produtos as $um_produtos) { ?>
 								<tr>
-								<td scope="row"><?= htmlspecialchars($um_utilizador['email']) ?></td>
-								<td><?= htmlspecialchars($um_utilizador['nome']) ?></td>
-								
+								<td scope="row"><?= htmlspecialchars($um_produtos['descricao']) ?></td>
+								<td><?= htmlspecialchars($um_produtos['nome']) ?></td>
+								<td><?= htmlspecialchars($um_produtos['preco']) ?></td>
 								<td><img class="row_image" src="images/sign_in.png" alt="foto"></td>
 								<td>
-									<a href="edit_utilizador.php?Valor=<?php echo htmlspecialchars($um_utilizador['email']); ?>" class="option_edit" style="text-decoration:none;color:inherit"><svg class="bi bi-pencil-square" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+									<a href="edit_produto.php?Valor=<?php echo htmlspecialchars($um_produtos['produtoid']); ?>" class="option_edit" style="text-decoration:none;color:inherit"><svg class="bi bi-pencil-square" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 									<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
 									<path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
 									</svg></a>
 									
-									<a href="delete_utilizador.php?Valor=<?php echo htmlspecialchars($um_utilizador['email']); ?>" class="" style="text-decoration:none;color:inherit"><svg class="bi bi-trash" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+									<a href="delete_produto.php?Valor=<?php echo htmlspecialchars($um_produtos['produtoid']); ?>" class="" style="text-decoration:none;color:inherit"><svg class="bi bi-trash" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 									<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
 									<path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
 									</svg></a>
@@ -286,7 +286,7 @@ if ($conn->connect_errno) {
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Deseja apagar o utilizador <?php echo $_SESSION["Value_Utilizador"]?>?</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Deseja apagar o produto <?php echo $_SESSION["Value_Hardware"]?>?</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -325,7 +325,7 @@ if ($conn->connect_errno) {
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Deseja editar este utilizador?</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Deseja editar este Produto?</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -335,8 +335,8 @@ if ($conn->connect_errno) {
 	  
 		<label for="">Nome</label>
 		<input type="text" class="form-control" name="edit_nome" id="edit_nome" value="<?php echo $EditarNome?>">
-		<label for="exampleInputEmail1">Email address</label>
-		<input type="email" class="form-control" name="edit_email" id="edit_email" aria-describedby="emailHelp" value="<?php echo $EditarEmail?>">
+		<label>Preco</label>
+		<input type="text" class="form-control" name="edit_preco" id="edit_preco" value="<?php echo $EditarPreco?>">
       </div>
 	  
       <div class="modal-footer">
@@ -359,8 +359,8 @@ if ($conn->connect_errno) {
 		}
 		
 		$(".option_delete" ).click(function() {
-			if (confirm("Deseja apagar este utilizador?")){
-				alert("Utilizador apagado com sucesso!");
+			if (confirm("Deseja apagar este produto?")){
+				alert("Produto apagado com sucesso!");
 			};
 		});
 		
