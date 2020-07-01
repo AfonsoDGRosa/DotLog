@@ -50,6 +50,8 @@ $produto = array_key_exists("produto", $_GET) ? $_GET["produto"] : "";
       <br>
       <br>
       <br>
+=======
+>>>>>>> master
       <br>
       <br>
       <br>
