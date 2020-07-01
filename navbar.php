@@ -41,19 +41,19 @@
         <?php
         if (isset($_SESSION['userpname'])) {
           echo '<li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <img src="images/sign_in.png" class="signin" style="width: 25px">
-    </a>
-    <div class="dropdown-menu dropdown-menu-right text-muted" aria-labelledby="navbarDropdown">
-<p style="justify-content:normal;color:rgb(54, 54, 54);padding:.25rem 1.5rem">
-      ' . $_SESSION["userpname"] . '    
-  <br>
-  <a style="padding-left:0px;" class="dropdown-item opcao" href="profile.php">Perfil</a>
-</p>
-<div class="dropdown-divider"></div>
-      <a class="dropdown-item opcao" href="logout.php">Sign Out</a>
-      
-  </li>';
+				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<img src="images/sign_in.png" class="signin" style="width: 25px">
+				</a>
+				<div class="dropdown-menu dropdown-menu-right text-muted" aria-labelledby="navbarDropdown">
+				<p style="justify-content:normal;color:rgb(54, 54, 54);padding:.25rem 1.5rem;margin-bottom:0px">
+				' . $_SESSION["userpname"]," ",$_SESSION["useraname"] . '    
+				<div style="margin-bottom:0px;margin-top:0px" class="dropdown-divider"></div>
+				<a class="dropdown-item opcao" href="profile.php">Perfil</a>
+				<a class="dropdown-item opcao" href="backoffice.php">BackOffice</a>
+				</p>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item opcao" href="logout.php">Sign Out</a>
+				</li>';
         } else {
           echo '<li class="nav-item dropdown"><a class="nav-link opcao"  href="login.php">Login</a></li>';
         }

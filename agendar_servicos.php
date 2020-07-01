@@ -13,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Agendar Serviços - DotLog</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/simple.css">
     <link rel="stylesheet" type="text/css" href="css/agendar_servicos.css">
@@ -32,16 +32,16 @@
 
 	?>
 
-<div class="container before_navbar">
-	<div class="row">
-      <div class="col-md-12 col-md-offset-3">
-        <div class="well well-sm">
-          <form class="form-horizontal" action="" method="post">
-          <fieldset>
-            <legend class="text-center">Agende um serviço</legend>
 
-            <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Tipo de Serviço</label>
-                <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+<div class="p-5">
+		<div class="container before_navbar submit_box">
+			<form class="form-horizontal" action="" method="post">
+			<fieldset>
+				<div class="form-group">
+				<h4 class="mb-4">Agendar um Serviço</h4>
+			
+				<label class="my-1 mr-2" for="inlineFormCustomSelectPref">Tipo de Serviço</label>
+				<select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
                 <option value= "0" >---</option>
                     <?php 
                         $result = mysqli_query($conn, "SELECT distinct * FROM dotlog.tipo_de_servicos where Detalhes is not null");
@@ -52,23 +52,17 @@
                             }
                         }
                     ?>
-                </select>
-
-    <div class="custom-control custom-checkbox my-1 mr-sm-2">
-        <input type="checkbox" class="custom-control-input" id="customControlInline">
-    </div>
+				</select>
+				</div>
     
-            <div class="form-group">
-              <label class="my-1 mr-2" for="message">Mensagem</label>
-              <div class="col-md-8">
-                <textarea class="form-control" id="message" name="message" placeholder="O que precisa?" rows="5"></textarea>
-              </div>
-            </div>
+				<div class="form-group">
+					<textarea class="form-control" id="message" name="message" placeholder="O que precisa?" rows="5"></textarea>
+				</div>
     
-            <div class="form-group">
-              <div class="col-md-12 text-right">
-                <button type="submit" class="btn btn-dark btn-lg">Enviar</button>
-                
+				<div class="form-group">
+					<div class="col-md-12 text-right">
+						<button type="submit" class="btn btn-primary">Enviar</button>
+						
                 <?php
                     $result = mysqli_query($conn, "SELECT distinct * FROM dotlog.tipo_de_servicos where Descricao = ServicoID");
                     $sql = "INSERT INTO servico_cliente(UtilizadorID,ServicoID,Descricao,DataDePedido)VALUES(
@@ -81,20 +75,21 @@
 
                    
                         if ($result_set) {
-							
-                        }
+							printf("sucesso");
+                        } else {
+							printf("erro");
+						}
               
                 ?>
 
                 
-                </div>
-            </div>
+					</div>
+				</div>
           </fieldset>
           </form>
-        </div>
-      </div>
+			
+		</div>
 	</div>
-</div>
 
 </body>
 

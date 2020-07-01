@@ -28,12 +28,15 @@ if ($conn->connect_errno) {
     //$result = $stmt->execute();
 	$result = $conn->query($stmt);
     if ($result) {
+        //$stmt->bind_result($UtilizadorID,$primeiro_nome,$apelido,$perfil,$email,$pass,$foto);
 
         while ($row = $result->fetch_assoc()) {
+			$user_id = htmlspecialchars($row['UtilizadorID']);
             $nome = htmlspecialchars($row['PrimeiroNome']);
+			$apelido = htmlspecialchars($row['Apelido']);
             $email = htmlspecialchars($row['Email']);
             $foto = htmlspecialchars($row['Imagem']);
-            $utilizador = array('nome' => $nome, 'email' => $email, 'foto' => $foto,);
+            $utilizador = array('utilizador_id' => $user_id,'nome' => $nome,'apelido' => $apelido, 'email' => $email, 'foto' => $foto,);
             $utilizadores[] = $utilizador;
         }
     } else {
@@ -52,7 +55,7 @@ if ($conn->connect_errno) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BackOffice</title>
+    <title>BackOffice Utilizadores - DotLog</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/simple.css">
     <link rel="stylesheet" type="text/css" href="css/backoffice.css">
@@ -81,10 +84,33 @@ if ($conn->connect_errno) {
 				$message = $conn->connect_error;
 			} else {
 			if (isset($_POST['add_item'])){
-				$sql = "insert into utilizador values(null,'".$_POST["recipient-nome"]."','Batista','Cliente','".$_POST["recipient-email"]."','123',null)";
-				$add = $conn->query($sql);
 				
-				header("Location: redirect.php");
+				$post_nome = $_POST["recipient-nome"];
+				$post_apelido = $_POST["recipient-apelido"];
+				$post_email = $_POST["recipient-email"];
+				
+				if (empty($post_nome) || empty($post_email) || empty($post_apelido)) {
+					echo "<script>alert('Campos não foram preenchidos')</script>";
+				} elseif (strlen($post_nome) > 50 || strlen($post_apelido) > 50) {
+					echo "<script>alert('Ultrapassa o limite de caracteres')</script>";
+				} else {
+					$post_nome = $conn->real_escape_string($post_nome);
+					$post_apelido = $conn->real_escape_string($post_apelido);
+					$post_email = $conn->real_escape_string($post_email);
+					
+					$sql = "insert into utilizador values(null,'".$post_nome."','".$post_apelido."','Cliente','".$post_email."','123',null)";
+					$add = $conn->query($sql);
+					
+					unset($_SESSION["Value_Utilizador"]);
+					unset($_SESSION["Action_Utilizador"]);
+					
+					if ($add) {
+						header("Location: redirect.php");
+					} else {
+						echo "<script>alert('Erro')</script>";
+					}
+				}
+				
 			} elseif (isset($_POST['delete_item'])) {
 				$sql = "delete from utilizador WHERE Email='".$_SESSION["Value_Utilizador"]."';";
 				$delete = $conn->query($sql);
@@ -95,13 +121,33 @@ if ($conn->connect_errno) {
 				
 				header("Location: redirect.php");
 			} elseif (isset($_POST['edit_item'])) {
-				$sql = "UPDATE utilizador SET PrimeiroNome = '".$_POST["edit_nome"]."', Email = '".$_POST["edit_email"]."' WHERE utilizador.Email = '".$_SESSION["Value_Utilizador"]."';";
-				$edit = $conn->query($sql);
 				
-				unset($_SESSION["Value_Utilizador"]);
-				unset($_SESSION["Action_Utilizador"]);
+				$post_nome = $_POST["edit_nome"];
+				$post_apelido = $_POST["edit_apelido"];
+				$post_email = $_POST["edit_email"];
 				
-				header("Location: redirect.php");
+				if (empty($post_nome) || empty($post_email) || empty($post_apelido)) {
+					echo "<script>alert('Campos não foram preenchidos')</script>";
+				} elseif(strlen($post_nome) > 50 || strlen($post_apelido) > 50) {	
+					echo "<script>alert('Ultrapassa o limite de caracteres')</script>";
+				} else {
+					$post_nome = $conn->real_escape_string($post_nome);
+					$post_apelido = $conn->real_escape_string($post_apelido);
+					$post_email = $conn->real_escape_string($post_email);
+					
+					$sql = "UPDATE utilizador SET PrimeiroNome = '".$_POST["edit_nome"]."',Apelido = '".$_POST["edit_apelido"]."', Email = '".$_POST["edit_email"]."' WHERE utilizador.Email = '".$_SESSION["Value_Utilizador"]."';";
+					$edit = $conn->query($sql);
+					
+					unset($_SESSION["Value_Utilizador"]);
+					unset($_SESSION["Action_Utilizador"]);
+					
+					if ($edit) {
+						header("Location: redirect.php");
+					} else {
+						echo "<script>alert('Erro')</script>";
+					}
+				}
+				
 			}
 			
 			}
@@ -125,6 +171,7 @@ if ($conn->connect_errno) {
 					
 					$EditarEmail = $row['Email'];
 					$EditarNome = $row['PrimeiroNome'];
+					$EditarApelido = $row['Apelido'];
 					
 				}
 			} else {
@@ -161,7 +208,7 @@ if ($conn->connect_errno) {
 	
 	<div id="wrapper" class="d-flex">
 	
-		<div class="mainsidebar dark_background">
+		<div id="left_sidebar" class="mainsidebar dark_background">
 			
 		<div class="sidebar-heading sidebar_padding dark_background">
 			DotLog BackOffice
@@ -169,8 +216,9 @@ if ($conn->connect_errno) {
 		
 		<div class="list-group list-group-flush">
 			
-				<a href="backoffice.php" class="list-group-item list-group-item-action dark_background">Dashboard</a>
-				<a href="admin_utilizadores" class="list-group-item list-group-item-action dark_background">Utilizadores</a>
+				<a href="backoffice.php" class="list-group-item list-group-item-action dark_background">Inicio</a>
+				<a href="admin_utilizadores.php" class="list-group-item list-group-item-action dark_background">Utilizadores</a>
+				<a href="admin_posts.php" class="list-group-item list-group-item-action dark_background">Posts</a>
 <div id="accordion">
   <div class="card" style="background-color:rgb(51,51,51); padding:.75rem 1.25rem">
     
@@ -183,15 +231,15 @@ if ($conn->connect_errno) {
 
     <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
       <div class="card-body" style="padding:0px">
-        <a href="admin_prod_hardware" class="list-group-item list-group-item-action dark_background">Hardware</a> 
-		<a href="#" class="list-group-item list-group-item-action dark_background">Software</a>
-		<a href="#" class="list-group-item list-group-item-action dark_background">Consumiveis</a>
+        <a href="admin_prod_hardware.php" class="list-group-item list-group-item-action dark_background">Hardware</a>
+		<a href="admin_prod_software.php" class="list-group-item list-group-item-action dark_background">Software</a>
+		<a href="admin_prod_consumiveis.php" class="list-group-item list-group-item-action dark_background">Consumiveis</a>
       </div>
     </div>
   </div>
   </div>
-		
-				<a href="#" class="list-group-item list-group-item-action dark_background">Serviços Agendados</a>
+				
+				<a href="admin_servicos.php" class="list-group-item list-group-item-action dark_background">Serviços Agendados</a>
 			
 		</div>
 		
@@ -200,8 +248,19 @@ if ($conn->connect_errno) {
 		<div style="min-height:100vh">
 			
 			<nav class="navbar navbar-expand-lg border-bottom sidebar_padding dark_background2">
+				<div>
+					<a id="left_sidebar_button" class="btn">
+						<svg class="bi bi-list" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+						<path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+						</svg>
+					</a>
+				</div>
 				<div>Utilizadores</div>
-				<div style="float:right"><img class="row_image" src="images/sign_in.png" alt="foto">Alexandre Gregorio</div>
+				
+				<ul class="navbar-nav mr-auto">
+
+				</ul>
+				<div><img class="row_image" src="images/sign_in.png" alt="foto"><?php echo $_SESSION['userpname']," ",$_SESSION['useraname']?></div>
 			</nav>
 			
 			<div class="container-fluid before_navbar">
@@ -237,6 +296,11 @@ if ($conn->connect_errno) {
 				</div>
 				
 				<div class="form-group">
+				<label for="recipient-name" class="col-form-label">Apelido:</label>
+				<input type="text" class="form-control" id="recipient-apelido" name="recipient-apelido">
+				</div>
+				
+				<div class="form-group">
 				<label for="recipient-name" class="col-form-label">Imagem:</label><br>
 					<input type="file" class="" id="recipient-img" name="recipient-img">
 				</div>
@@ -254,8 +318,10 @@ if ($conn->connect_errno) {
 					<table id="mydatatable" class="table table-bordered mydatatable" style="width:100%">
 						<thead>
 							<tr>
+								<th>ID</th>
 								<th>Email</th>
 								<th>Nome</th>
+								<th>Apelido</th>
 								<th>Foto</th>
 								<th>Ações</th>
 								
@@ -265,8 +331,10 @@ if ($conn->connect_errno) {
 						<tbody>
 							 <?php foreach ($utilizadores as $um_utilizador) { ?>
 								<tr>
+								<td><?= htmlspecialchars($um_utilizador['utilizador_id']) ?></td>
 								<td scope="row"><?= htmlspecialchars($um_utilizador['email']) ?></td>
 								<td><?= htmlspecialchars($um_utilizador['nome']) ?></td>
+								<td><?= htmlspecialchars($um_utilizador['apelido']) ?></td>
 								
 								<td><img class="row_image" src="images/sign_in.png" alt="foto"></td>
 								<td>
@@ -335,6 +403,8 @@ if ($conn->connect_errno) {
 	  
 		<label for="">Nome</label>
 		<input type="text" class="form-control" name="edit_nome" id="edit_nome" value="<?php echo $EditarNome?>">
+		<label for="">Apelido</label>
+		<input type="text" class="form-control" name="edit_apelido" id="edit_apelido" value="<?php echo $EditarApelido?>">
 		<label for="exampleInputEmail1">Email address</label>
 		<input type="email" class="form-control" name="edit_email" id="edit_email" aria-describedby="emailHelp" value="<?php echo $EditarEmail?>">
       </div>
@@ -353,26 +423,15 @@ if ($conn->connect_errno) {
 			$('#mydatatable').DataTable();
 		} );
 		
-		function inserir(){
-			var nome = prompt("nome?","a");
+		$("#left_sidebar_button").click(function() {
+			if ($("#left_sidebar").hasClass("activated")) {
+				$("#left_sidebar").removeClass("activated");
+			} else {
+				$("#left_sidebar").addClass("activated");
+			}
 			
-		}
-		
-		$(".option_delete" ).click(function() {
-			if (confirm("Deseja apagar este utilizador?")){
-				alert("Utilizador apagado com sucesso!");
-			};
 		});
 		
-		
-		var table = $('#mydatatable').DataTable();
- 
-		$('#mydatatable tbody').on( 'click', 'tr', function () {
-			
-			console.log( table.row( this ).data() );
-			$('#mydatatable tbody').removeClass('select')
-			$(this).addClass('select')
-		} );
 	</script>
 	<?php
 	/*if (isset($_SESSION["Action"])) {

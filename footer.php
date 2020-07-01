@@ -1,9 +1,5 @@
-
-
-
-
-<footer class="page-footer font-small unique-color-dark footer" style="background-color: #30373f;">
-    <div class="container text-center text-md-left " style="padding-top:25px">
+<footer class="page-footer font-small unique-color-dark footer" style="background-color: #30373f;"><br>
+    <div class="container text-center text-md-left mt-1 pt-3">
 
       <div class="row mt-3">
 

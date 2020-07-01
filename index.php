@@ -8,6 +8,7 @@ session_start();
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DotLog</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="images/android-chrome-256x256.png">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="css/simple.css">
   <link rel="stylesheet" type="text/css" href="css/inicial.css">
@@ -95,7 +96,7 @@ session_start();
 				?>
 				
 				<div class="card text-center text-dark servicos_lista servicos_card" style="width: 18rem;">
-					<img src=<?=$row['Imagem']?> class="card-img-top">
+					<img src=<?=$row['Imagem']?> class="card-img-top p-3">
 					<div class="card-body">
 						<h5 class="card-title"><?= $row['Nome'] ?></h5>
 						<br>

@@ -8,7 +8,7 @@ session_start();
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DotLog</title>
+  <title>Sign up - DotLog</title>
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="css/simple.css">
   <link rel="stylesheet" type="text/css" href="css/inicial.css">
@@ -42,6 +42,9 @@ session_start();
       }
       if (isset($_POST["nome"])) {
         $nome = $_POST["nome"];
+      }
+	  if (isset($_POST["apelido"])) {
+        $apelido = $_POST["apelido"];
       }
       if (isset($_POST["pass"])) {
         $pass = $_POST["pass"];
@@ -93,30 +96,32 @@ session_start();
         <div id="login-row" class="row justify-content-center align-items-center">
         <div id="login-column" class="col-md-6">
         <div id="login-box" class="col-md-12">
-        <h2>Novo utilizador</h2>
-                    <form action="#" method="post" id="insertUser" enctype="multipart/form-data">
+                    <form action="#" class="form" method="post" id="login-form" enctype="multipart/form-data">
+					<img id="login-img" src="images/sign_in.png" class="signin">
+					<div class="text-center h4 mt-2">Registar Conta</div>
                     <div class="form-group">
-                      <label for="idEmail">Email: </label>
-                      <input type="email" name="email" id="idEmail" required value="' . $email . '">*<br>
-                      </div>
+                      <label for="idEmail" class="text-info">*Email:</label><br>
+                      <input class="form-control" type="email" name="email" id="idEmail" required value="' . $email . '"><br>
+                    </div>
                       <div class="form-group">
-                      <label for="idNome">Nome: </label>
-                      <input type="text" name="nome" id="idNome" required value="' . $nome . '">*<br>
-                      </div>
+                      <label for="idNome" class="text-info">*Nome: </label>
+                      <input class="form-control" type="text" name="nome" id="idNome" required value="' . $nome . '"><br>
+                    </div>
                       <div class="form-group">
-                      <label for="idApelido">Apelido</label>
-                      <input type="text" name="apelido" id="idApelido" required value="' . $apelido . '">*<br>
-                      </div>
+                      <label for="idApelido" class="text-info">Apelido</label>
+                      <input class="form-control" type="text" name="apelido" id="idApelido" required value="' . $apelido . '"><br>
+                    </div>
                       <div class="form-group">
 
-                      <label for="idPass">Password: </label>
-                      <input type="password" name="pass" id="idPass" required >*<br>
-                      </div>
-                      <br>
-                      <br>
+                      <label for="idPass" class="text-info">*Password: </label>
+                      <input class="form-control" type="password" name="pass" id="idPass" required ><br>
+                    </div>
+                      
                       <div class="form-group">
-                      <input type="submit" value="Inserir" id="btSubmit">
-                      <input type="reset" value="Limpar" id="btReset">
+                      <input class="btn btn-info btn-md" type="submit" value="Criar Conta" id="btSubmit">
+					  <input class="btn btn-info btn-md" type="reset" value="Limpar" id="btReset">
+					  
+                      
                       </div>
                      </form>
                      </div>
