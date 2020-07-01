@@ -31,7 +31,37 @@ $produto = array_key_exists("produto", $_GET) ? $_GET["produto"] : "";
 
   <section class="before_navbar" >
   <?php
-  ?>
+  $error_message = "";
+
+  $query1 = "select * from produto where Nome = '$produto'";
+
+  $card1 = $conn->query($query1);
+
+  if($card1->num_rows == 1) { 
+    $row = $card1->fetch_assoc();
+    echo '<div>
+    <img src='.$row['Imagem'].' class="card-img-top p-3">
+      <div>
+        <h2 class="card-title">' .$produto. '</h2>
+        <p style:"margin-bottom:25%">'.$row['Descricao'].'</p>
+      </div> 
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>';     
+  } else { 
+    $error_message = "Produto não encontrado";
+  }
+    ?>
     </div>             
   </section>
   
