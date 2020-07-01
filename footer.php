@@ -1,5 +1,9 @@
+
+
+
+
 <footer class="page-footer font-small unique-color-dark footer" style="background-color: #30373f;">
-    <div class="container text-center text-md-left mt-5" style="padding-top:25px">
+    <div class="container text-center text-md-left " style="padding-top:25px">
 
       <div class="row mt-3">
 
@@ -18,7 +22,7 @@
           <p>Leiria</p>
           <p>dotlog@gmail.com</p>
           <p>923 424 112</p>
-          <p>08:00 - 21:00</p>
+          <p>09:00 - 19:00</p>
         </div>
 
         <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">

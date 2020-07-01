@@ -27,10 +27,9 @@
               <p class="main_text">Contacte-nos:</p>
               <br />
               <p class="lower_text">
-                R. Cavaleiros da Grande Guerra, Leiria<br />
-                dotlog@gmail.com<br />
                 923 424 112<br />
-                08:00 - 21:00
+                Abertos Seg. a Sexta <br/>
+                das  09:00 - 19:00
               </p>
             </div>
           </div>
@@ -63,7 +62,8 @@
 
                     <div class="Lista">
                         <h2>Redes Sociais</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia omnis excepturi voluptatibus id iusto</p>
+                        <img src="images/face_icon.png" class="face_icon" style="width: 74px"> 
+                        <img src="images/linkedin_icon.jpg" class="linkedin_icon" style="width: 74px">
                     </div>
 
                     </th>
