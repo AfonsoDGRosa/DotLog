@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link href="css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/contactos.css" />
-    <link rel="stylesheet" type="text/css" href="css/simple.css" />
-	<link href="css/contacts.css" rel="stylesheet" />
+<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="css/simple.css">
+  <link rel="stylesheet" type="text/css" href="css/inicial.css">
+  <link href="css/contacts.css" rel="stylesheet" />
 	<title>Contactos</title>
     
   </head>
@@ -44,22 +43,22 @@
 
                     <div class="Lista">
                         <h2>Morada</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia omnis excepturi voluptatibus id iusto</p>
+                        <p>R. Cavaleiros da Grande Guerra, Leiria</p>
                     </div>
 
                     <div class="Lista">
                         <h2>Email Comercial</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia omnis excepturi voluptatibus id iusto</p>
+                        <p>dotlog@gmail.com</p>
                     </div>
 
                     <div class="Lista">
                         <h2>Email Administrativo</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia omnis excepturi voluptatibus id iusto</p>
+                        <p>rec_humanos@dotlog.com</p>
                     </div>
 
                     <div class="Lista">
                         <h2>Email Técnico</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia omnis excepturi voluptatibus id iusto</p>
+                        <p>ass_tec@dotlog.com</p>
                     </div>
 
                     <div class="Lista">
@@ -74,55 +73,10 @@
       </tr>
     </table>
 
-    <footer class="page-footer font-small unique-color-dark footer" style="background-color: #30373f;"><br>
-    <div class="container text-center text-md-left mt-5">
+    <?php
+  require_once "footer.php";
 
-      <div class="row mt-3">
+  ?>
 
-        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-
-          <h6 class="text-uppercase font-weight-bold">Dotlog</h6>
-          <hr class="white mb-4 mt-0 d-inline-block mx-auto" style="width: 75px;border-top: 1px solid rgb(255,255,255)">
-          <p>lorem ipsum</p>
-
-        </div>
-
-        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-
-          <h6 class="text-uppercase font-weight-bold">Contactos</h6>
-          <hr class="white mb-4 mt-0 d-inline-block mx-auto" style="width: 110px;border-top: 1px solid rgb(255,255,255)">
-          <p>Leiria</p>
-          <p>dotlog@gmail.com</p>
-          <p>923 424 112</p>
-          <p>08:00 - 21:00</p>
-        </div>
-
-        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-
-          <h6 class="text-uppercase font-weight-bold">Links Rapidos</h6>
-          <hr class="white mb-4 mt-0 d-inline-block mx-auto" style="width: 150px;border-top: 1px solid rgb(255,255,255)">
-          <p>
-            <a href="#!">Home</a>
-          </p>
-          <p>
-            <a href="#!">Serviços</a>
-          </p>
-          <p>
-            <a href="#!">Sobre</a>
-          </p>
-          <p>
-            <a href="#!">Contactos</a>
-          </p>
-
-        </div>
-
-      </div>
-
-	  
-	  <div class="footer-copyright text-center font-weight-bold" style="color: white;font-size: 11t;">© 2020 DotLog
-    </div>
-    </div>
-    
-  </footer>
   </body>
 </html>
