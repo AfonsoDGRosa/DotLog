@@ -27,7 +27,23 @@
 	min-height:100vh; width:14rem
 }
 
+.user_info{
+	position:fixed;
+	top: 0.8em;
+	right: 1em;
+}
+
+@media only screen and (max-width: 600px) {
+  .user_info{
+	position:normal;
+	top: 1.1em;
+    font-size:15px;
+  }
+}
+
 .row_image{
+	margin-right:5px;
+	margin-bottom:5px;
 	width:32px;
 	height:32px;
 }
@@ -44,4 +60,12 @@
 table.dataTable tbody>tr.select, table.dataTable tbody>tr>.select{
 	background-color:rgba(0,0,0,.05);
 	font-weight:bold;
+}
+
+#left_sidebar{
+	transition: margin 700ms;
+}
+
+#left_sidebar.activated{
+	margin-left:-223px;
 }

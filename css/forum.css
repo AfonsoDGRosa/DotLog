@@ -14,25 +14,21 @@ body{
 .forum_dotlog{
 	margin-top:80px;
 	margin-bottom:16px;
-	padding-left: 0px;
-	padding-right: 0px;
+	padding:15px;
 	background-color:white;
 	border-style:solid;
 	border-width:1px;
 	border-color:rgb(200,200,200);
+	overflow:hidden;
 }
 
 .forum_dotlog h2{
 	font-size:50px;
 	font-weight:bold;
-	padding-left: 15px;
-	padding-right: 15px;
+
 }
 
-.forum_dotlog p{
-	padding-left: 15px;
-	padding-right: 15px;
-}
+
 
 .forum_dotlog_post{
 	margin-top:80px;
@@ -107,9 +103,16 @@ body{
 	margin-left:85px;
 }
 
-.forum_comment {
+.forum_comment_div {
+	border-style:solid;
+	border-width:1px;
+	border-color:rgb(200,200,200);
+	background-color:white;
+	padding:15px;
 	margin-top:64px;
 }
+
+
 
 .forum_comment h2 {
 	margin-left:50px;
