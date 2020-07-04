@@ -140,7 +140,7 @@ if ($conn->connect_errno) {
     $search->close();
 			
 			
-			if ($_SESSION["Action_Hardware"] == "Delete") {
+			if ($_SESSION["Action_Produto"] == "Delete") {
 				?>
 				<script type="text/javascript">
 					$(window).on('load',function(){
@@ -148,7 +148,7 @@ if ($conn->connect_errno) {
 					});
 				</script>
 				<?php
-			} elseif ($_SESSION["Action_Hardware"] == "Edit") {
+			} elseif ($_SESSION["Action_Produto"] == "Edit") {
 				?>
 					<script type="text/javascript">
 						$(window).on('load',function(){

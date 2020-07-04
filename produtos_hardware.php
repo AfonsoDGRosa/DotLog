@@ -53,7 +53,7 @@ session_start();
 
             <th>
                 <div class="lista_container">
-                    <div class="lista_div row">
+                    <div class="lista_div row" style="overflow: hidden;">
 
 					<?php
 						require_once "connectdb.php";
@@ -64,7 +64,7 @@ session_start();
 							die("Erro na ligação da base de dados" . $conn->connect_error);
 						}
 						
-						$query = "SELECT Nome, Imagem, Descricao, Preco FROM dotlog.produto where CategoriaId = 2";
+						$query = "SELECT Nome, Imagem, Descricao, Preco FROM dotlog.produto where CategoriaId = 1";
 						
 						$result_set = $conn->query($query);
 						

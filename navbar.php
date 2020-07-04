@@ -26,9 +26,9 @@
             Produtos
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item opcao" href="#">Hardware</a>
+            <a class="dropdown-item opcao" href="produtos_hardware.php">Hardware</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item opcao" href="#">Software</a>
+            <a class="dropdown-item opcao" href="produtos_software.php">Software</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item opcao" href="#">Consumiveis</a>
         </li>
