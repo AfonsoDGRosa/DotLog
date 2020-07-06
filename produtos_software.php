@@ -10,8 +10,7 @@ session_start();
     <title>Produtos Software</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/simple.css">
-    <link rel="stylesheet" type="text/css" href="css/servicos.css">
-    
+  <link rel="stylesheet" type="text/css" href="css/servicos.css">
 </head>
 
 <body>
@@ -35,9 +34,8 @@ session_start();
                           <th>Subcategorias</th>
                         </tr>
                         <tr>
-                          <td><button>Consumiveis</button></td>
+                          <td><button>Comercial</button></td>
                           <br>
-                          
                         </tr>
                         <tr>
                         <td><button>Video-Vigilancia</button></td>
@@ -73,7 +71,7 @@ session_start();
 								while($row = $result_set->fetch_assoc()) { 
                     ?>
                     <div class="card text-center text-dark col" style="width: 18rem;">
-                      <img src=<?=$row['Imagem']?> class="card-img-top p-3">
+                      <img src=<?=$row['Imagem']?> class="card-img-top p-3" style="width: 200px;">
                       <div class="card-body">
                         <h5 class="card-title"><?= $row['Nome'] ?></h5>
                         <br>

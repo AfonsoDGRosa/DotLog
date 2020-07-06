@@ -13,17 +13,10 @@
     <form class="form-inline my-2 my-lg-0">
       <ul class="navbar-nav mr-auto opcao">
         <li class="nav-item opcao">
-<<<<<<< HEAD
           <a class="nav-link" href="sobre.php">Sobre</a>
         </li>
         <li class="nav-item">
           <a class="nav-link opcao" href="contactos.php">Contactos</a>
-=======
-          <a class="nav-link" href="sobre.html">Sobre</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link opcao" href="contactos.html">Contactos</a>
->>>>>>> master
         </li>
         <li class="nav-item">
           <a class="nav-link opcao" href="forum.php">Forum</a>
@@ -37,7 +30,7 @@
             <div class="dropdown-divider"></div>
             <a class="dropdown-item opcao" href="produtos_software.php">Software</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item opcao" href="#">Consumiveis</a>
+            <a class="dropdown-item opcao" href="produtos_consumiveis.php">Consumiveis</a>
         </li>
         <li class="nav-item">
           <a class="nav-link opcao" href="servicos.php">Serviços</a>
@@ -62,12 +55,7 @@
 				<a class="dropdown-item opcao" href="logout.php">Sign Out</a>
 				</li>';
         } else {
-<<<<<<< HEAD
           echo '<li class="nav-item dropdown"><a class="nav-link opcao"  href="login.php">Login</a></li>';
-=======
-          echo '<a class="dropdown-item"  href="login.php">Login</a>
-    <a class="dropdown-item opcao"  href="signup.php">Criar Conta</a>';
->>>>>>> master
         }
 
         ?>

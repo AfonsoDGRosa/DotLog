@@ -10,8 +10,7 @@ session_start();
     <title>Produtos Software</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/simple.css">
-    <link rel="stylesheet" type="text/css" href="css/servicos.css">
-    
+  <link rel="stylesheet" type="text/css" href="css/servicos.css">
 </head>
 
 <body>
@@ -26,7 +25,7 @@ session_start();
 
     <table id="table_tamanho" style="width:50%; height: 600px;">
         <tr>
-            <th rowspan="2" style="background-color: rgb(51,51,51)">
+            <th rowspan="2" style="background-color: rgb(217, 217, 217)">
                 <div class="front_text">
 
                     <div class="Imtext">
@@ -34,8 +33,9 @@ session_start();
                         <tr>
                           <th>Subcategorias</th>
                         </tr>
+                        <tr><td><br><br></td></tr>
                         <tr>
-                          <td><button>Consumiveis</button></td>
+                          <td><button>Comercial</button></td>
                           <br>
                           
                         </tr>
@@ -53,7 +53,7 @@ session_start();
 
             <th>
                 <div class="lista_container">
-                    <div class="lista_div row" style="overflow: hidden;">
+                    <div class="lista_div row " >
 
 					<?php
 						require_once "connectdb.php";
@@ -73,7 +73,7 @@ session_start();
 								while($row = $result_set->fetch_assoc()) { 
                     ?>
                     <div class="card text-center text-dark col" style="width: 18rem;">
-                      <img src=<?=$row['Imagem']?> class="card-img-top p-3">
+                      <img src=<?=$row['Imagem']?> class="card-img-top p-3" style="width: 200px;">
                       <div class="card-body">
                         <h5 class="card-title"><?= $row['Nome'] ?></h5>
                         <br>

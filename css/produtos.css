@@ -1,0 +1,46 @@
+.card{
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  padding-left: 150px;
+}
+
+.card-body{
+  list-style-type: none;
+  display: flex;
+    flex-flow: column wrap;
+    margin: 50px;
+    width: 300px;
+    overflow: hidden;
+}
+
+
+.wrapper{
+  width: 90%;
+  display: flex;
+  padding-top: 100px;
+}
+
+
+.sidebar{
+  position: sticky;
+  top: 0;
+  display: flex;
+  height: 750px;
+  width: 250px;
+  background-color: rgb(217, 217, 217)
+}
+
+
+.servico_button{
+	color:rgba(0,128,195,1);
+	border-color:#00a2e8;
+}
+
+.servico_button:hover, .servico_button:focus, .servico_button:active{
+	color:white;
+	background-color:rgba(0,128,195,1);
+}
+
+

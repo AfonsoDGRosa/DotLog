@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-=======
-<?php
-session_start();
-?>
-
->>>>>>> master
 <!DOCTYPE html>
 <html lang="en">
 <meta charset="UTF-8">
@@ -22,17 +15,9 @@ session_start();
     <script src="scripts/js/bootstrap.min.js"></script>
 	<script src="scripts/js/bootstrap.bundle.min.js"></script>
 
-<<<<<<< HEAD
     <?php
 	require_once "navbar.php";
 	?>
-=======
-  <?php
-  require_once "navbar.php";
-  require "connectdb.php";
-
-  ?>
->>>>>>> master
 
     <table class="before_navbar" border="0" style="width:50%;border-collapse:collapse">
       <tr>

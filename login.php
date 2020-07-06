@@ -1,8 +1,4 @@
 <?php
-<<<<<<< HEAD
-=======
-
->>>>>>> master
 session_start();
 ?>
 
@@ -63,7 +59,6 @@ session_start();
 
               $_SESSION['userpname'] = $row['PrimeiroNome'];
               $_SESSION['useraname'] = $row['Apelido'];
-<<<<<<< HEAD
 			  $_SESSION['utilizador_id'] = $row['UtilizadorID'];
 			  
 			  $_SESSION['authenticated'] = true;
@@ -75,10 +70,6 @@ session_start();
 			  }
 			  exit(0);
 			  
-=======
-              header("Location: index.php");
-
->>>>>>> master
             } else {
               echo '<p>Password Errada</p>';
             }
