@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-white">
   <a class="navbar-brand" href="index.php"><img src="images/dotlog_logo.png" class="logo" style="width: 200px"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -40,17 +40,57 @@
 
         <?php
         if (isset($_SESSION['userpname'])) {
+			
+			require_once "connectdb.php";
+		
+			$user_image = "";
+			$user_rank = "";
+		
+			if ($conn->connect_errno) {
+				$code = $conn->connect_errno;
+				$message = $conn->connect_error;
+			} else {
+			
+				
+					$sql = "select * from utilizador where UtilizadorID = '".$_SESSION['utilizador_id']."'";
+					$search = $conn->query($sql);
+					
+					if ($sql) {
+						if($search->num_rows == 1) {
+							$row = $search->fetch_assoc();
+							
+							$user_image = $row['Imagem'];
+							$user_rank = $row['Perfil'];
+						}
+					} else {
+						$code = $sql->errno;
+						$message = $sql->error;
+						printf("<p>Query error: %d %s</p>", $code, $message);
+					}
+
+					$search->close();
+			
+			}
+			
+			if (empty($user_image)) {
+				$user_image = "images/sign_in.png";
+			}
+			
           echo '<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				<img src="images/sign_in.png" class="signin" style="width: 25px">
+				<img src='. $user_image .' class="signin" style="width: 25px;border-radius:100px">
 				</a>
 				<div class="dropdown-menu dropdown-menu-right text-muted" aria-labelledby="navbarDropdown">
 				<p style="justify-content:normal;color:rgb(54, 54, 54);padding:.25rem 1.5rem;margin-bottom:0px">
 				' . $_SESSION["userpname"]," ",$_SESSION["useraname"] . '    
 				<div style="margin-bottom:0px;margin-top:0px" class="dropdown-divider"></div>
+				
 				<a class="dropdown-item opcao" href="profile.php">Perfil</a>
-				<a class="dropdown-item opcao" href="backoffice.php">BackOffice</a>
-				</p>
+				';
+				if ($user_rank == "Administrador") {
+					echo '<a class="dropdown-item opcao" href="backoffice.php">BackOffice</a>';
+				}
+				echo '</p>
 				<div class="dropdown-divider"></div>
 				<a class="dropdown-item opcao" href="logout.php">Sign Out</a>
 				</li>';

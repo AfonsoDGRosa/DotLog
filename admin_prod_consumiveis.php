@@ -71,6 +71,8 @@ if ($conn->connect_errno) {
 	
 	
 	<?php
+		$post_foto = array_key_exists('recipient-img', $_FILES) ? $_FILES['recipient-img']['name'] : "";
+	
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			require_once "connectdb.php";
 			
@@ -79,8 +81,25 @@ if ($conn->connect_errno) {
 				$message = $conn->connect_error;
 			} else {
 			if (isset($_POST['add_item'])){
-				$sql = "INSERT into produto values(null,'".$_POST["recipient-nome"]."','".$_POST["recipient-img"]."','".$_POST["recipient-descr"]."','".$_POST["recipient-preco"]."',3,1);";
+				
 				if (!empty($descricao) && !empty($nome) && !empty($preco)) {
+					$sql = "INSERT into produto values(null,'".$_POST["recipient-nome"]."','".$_POST["recipient-img"]."','".$_POST["recipient-descr"]."','".$_POST["recipient-preco"]."',3,1);";
+					
+					if ($post_foto != "" && getimagesize($_FILES['recipient-img']['tmp_name'])) {
+						
+						$diretoria_upload = "uploads/produtos/";
+						$extensao = pathinfo($post_foto, PATHINFO_EXTENSION);
+						$novo_ficheiro = $diretoria_upload . sha1(microtime()) . "." . $extensao;
+						
+						if (move_uploaded_file($_FILES['recipient-img']['tmp_name'], $novo_ficheiro)) {
+							echo "<script>alert('Upload da imagem bem sucedido!')</script>";
+							$sql = "INSERT into produto values(null,'".$_POST["recipient-nome"]."','".$novo_ficheiro."','".$_POST["recipient-descr"]."','".$_POST["recipient-preco"]."',3,1);";
+						} else {
+							echo "<script>alert('Houve um problema no upload da imagem')</script>";
+						}
+					
+					}
+					
 					
 					
 					$add = $conn->query($sql);
@@ -94,11 +113,30 @@ if ($conn->connect_errno) {
 				$sql = "delete from produto WHERE ProdutoID='".$_SESSION["Value_Produto"]."';";
 				$delete = $conn->query($sql);
 				unset($_SESSION["Value_Produto"]);
-				unset($_SESSION["Action_HProduto"]);
+				unset($_SESSION["Action_Produto"]);
 				
 				header("Location: redirect.php");
 			} elseif (isset($_POST['edit_item'])) {
 				$sql = "UPDATE produto SET Nome = '".$_POST["edit_nome"]."', Preco = '".$_POST["edit_preco"]."' WHERE produto.ProdutoID = '".$_SESSION["Value_Produto"]."';";
+				
+				
+				if ($post_foto != "" && getimagesize($_FILES['recipient-img']['tmp_name'])) {
+						
+					$diretoria_upload = "uploads/produtos/";
+					$extensao = pathinfo($post_foto, PATHINFO_EXTENSION);
+					$novo_ficheiro = $diretoria_upload . sha1(microtime()) . "." . $extensao;
+					
+					if (move_uploaded_file($_FILES['recipient-img']['tmp_name'], $novo_ficheiro)) {
+						echo "<script>alert('Upload da imagem bem sucedido!')</script>";
+						//$sql = "insert into utilizador values(null,'".$post_nome."','".$post_apelido."','Cliente','".$post_email."',Sha2('123',512),'".$novo_ficheiro."')";
+						$sql = "UPDATE produto SET Nome = '".$_POST["edit_nome"]."', Preco = '".$_POST["edit_preco"]."', Imagem = '".$novo_ficheiro."' WHERE produto.ProdutoID = '".$_SESSION["Value_Produto"]."';";
+					} else {
+						echo "<script>alert('Houve um problema no upload da imagem')</script>";
+					}
+				
+				}
+				
+				
 				$edit = $conn->query($sql);
 				
 				unset($_SESSION["Value_Produto"]);
@@ -164,7 +202,7 @@ if ($conn->connect_errno) {
 	
 	<div id="wrapper" class="d-flex">
 	
-		<div class="mainsidebar dark_background">
+		<div id="left_sidebar" class="mainsidebar dark_background">
 			
 		<div class="sidebar-heading sidebar_padding dark_background">
 			DotLog BackOffice
@@ -172,8 +210,9 @@ if ($conn->connect_errno) {
 		
 		<div class="list-group list-group-flush">
 			
-				<a href="backoffice.php" class="list-group-item list-group-item-action dark_background">Dashboard</a>
-				<a href="admin_utilizadores" class="list-group-item list-group-item-action dark_background">Utilizadores</a>
+				<a href="backoffice.php" class="list-group-item list-group-item-action dark_background">Inicio</a>
+				<a href="admin_utilizadores.php" class="list-group-item list-group-item-action dark_background">Utilizadores</a>
+				<a href="admin_posts.php" class="list-group-item list-group-item-action dark_background">Posts</a>
 <div id="accordion">
   <div class="card" style="background-color:rgb(51,51,51); padding:.75rem 1.25rem">
     
@@ -186,23 +225,40 @@ if ($conn->connect_errno) {
 
     <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
       <div class="card-body" style="padding:0px">
-        <a href="admin_prod_hardware" class="list-group-item list-group-item-action dark_background">Hardware</a> 
-		<a href="admin_prod_software" class="list-group-item list-group-item-action dark_background">Software</a>
+        <a href="admin_prod_hardware.php" class="list-group-item list-group-item-action dark_background">Hardware</a> 
+		<a href="admin_prod_software.php" class="list-group-item list-group-item-action dark_background">Software</a>
 		<a href="admin_prod_consumiveis.php" class="list-group-item list-group-item-action dark_background">Consumiveis</a>
       </div>
     </div>
   </div>
   </div>
 				
-				
-				<a href="#" class="list-group-item list-group-item-action dark_background">Serviços Agendados</a>
+				<a href="admin_servicos.php" class="list-group-item list-group-item-action dark_background">Serviços Agendados</a>
 			
 		</div>
 		
 		</div>
 		
 		<div style="min-height:100vh">
-			
+			<nav class="navbar navbar-expand-lg border-bottom sidebar_padding dark_background2">
+				<div>
+					<a id="left_sidebar_button" class="btn">
+						<svg class="bi bi-list" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+						<path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+						</svg>
+					</a>
+				</div>
+				<div>Consumiveis</div>
+				
+				<ul class="navbar-nav mr-auto">
+
+				</ul>
+				<div class="user_info"><img class="row_image" src="images/sign_in.png" alt="foto"><?php echo $_SESSION['userpname']," ",$_SESSION['useraname']?>
+				<a style="color:white;text-decoration:none" href="index.php"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-door-open-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+				<path fill-rule="evenodd" d="M1.5 15a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1H13V2.5A1.5 1.5 0 0 0 11.5 1H11V.5a.5.5 0 0 0-.57-.495l-7 1A.5.5 0 0 0 3 1.5V15H1.5zM11 2v13h1V2.5a.5.5 0 0 0-.5-.5H11zm-2.5 8c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1z"/>
+				</svg></a>
+				</div>
+			</nav>
 		
 			
 			<div class="container-fluid before_navbar">
@@ -226,7 +282,7 @@ if ($conn->connect_errno) {
 				
 				<div class="modal-body">
 				
-				<form action="" method="post">
+				<form action="" method="post" enctype="multipart/form-data">
 				<div class="form-group">
 				<label for="recipient-name" class="col-form-label">Descricao</label>
 				<input type="text" class="form-control" id="recipient-descr" required name="recipient-descr">
@@ -275,7 +331,7 @@ if ($conn->connect_errno) {
 								<td scope="row"><?= htmlspecialchars($um_produtos['descricao']) ?></td>
 								<td><?= htmlspecialchars($um_produtos['nome']) ?></td>
 								<td><?= htmlspecialchars($um_produtos['preco']) ?></td>
-								<td><img src="imageView.php?image_id=<?= htmlspecialchars($um_produtos['foto']) ?>"></td>
+								<td><img src=<?=$um_produtos['foto'] ?> alt="produto" style="width:64px"></td>
 								<td>
 									<a href="edit_produto.php?Valor=<?php echo htmlspecialchars($um_produtos['produtoid']); ?>" class="option_edit" style="text-decoration:none;color:inherit"><svg class="bi bi-pencil-square" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 									<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
@@ -337,13 +393,15 @@ if ($conn->connect_errno) {
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-	  <form action="" method="post">
+	  <form action="" method="post" enctype="multipart/form-data">
       <div class="modal-body">
 	  
 		<label for="">Nome</label>
 		<input type="text" class="form-control" name="edit_nome" id="edit_nome" value="<?php echo $EditarNome?>">
 		<label>Preco</label>
 		<input type="text" class="form-control" name="edit_preco" id="edit_preco" value="<?php echo $EditarPreco?>">
+		<label for="" >Imagem:</label><br>
+		<input type="file" class="" id="recipient-img" name="recipient-img">
       </div>
 	  
       <div class="modal-footer">
@@ -360,26 +418,15 @@ if ($conn->connect_errno) {
 			$('#mydatatable').DataTable();
 		} );
 		
-		function inserir(){
-			var nome = prompt("nome?","a");
+		$( "#left_sidebar_button" ).click(function() {
+			if ($("#left_sidebar").hasClass("activated")) {
+				$("#left_sidebar").removeClass("activated");
+			} else {
+				$("#left_sidebar").addClass("activated");
+			}
 			
-		}
-		
-		$(".option_delete" ).click(function() {
-			if (confirm("Deseja apagar este produto?")){
-				alert("Produto apagado com sucesso!");
-			};
 		});
 		
-		
-		var table = $('#mydatatable').DataTable();
- 
-		$('#mydatatable tbody').on( 'click', 'tr', function () {
-			
-			console.log( table.row( this ).data() );
-			$('#mydatatable tbody').removeClass('select')
-			$(this).addClass('select')
-		} );
 	</script>
 	<?php
 	/*if (isset($_SESSION["Action"])) {

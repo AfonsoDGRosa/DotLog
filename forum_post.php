@@ -1,12 +1,46 @@
 <?php
 	session_start();
-	$error_message = "";
 	
 	$postID = array_key_exists("postID", $_GET) ? $_GET["postID"] : "";
 	
 	//$postID = array_key_exists("postID", $_POST) ? $_POST["postID"] : "";
 	
 	$mensagem = "";
+	
+	if (isset($_POST['post_comment'])) {
+		require_once "connectdb.php";
+		
+		$post_message = "";
+		$post_assunto = "Resposta";
+		$utilizador_id = null;
+		
+		if ($conn->connect_errno) {
+			$code = $conn->connect_errno;
+			$message = $conn->connect_error;
+			echo "<script>alert('Falha na ligação a base de dados')</script>";
+		} else {
+		
+			$post_message = $_POST["post_message"];
+			//$post_assunto = $_POST['post_assunto'];
+			$utilizador_id = $_SESSION['utilizador_id'];
+			
+			if (empty($post_message) || strlen($post_message) > 255) {
+				echo "<script>alert('Campos não foram preenchidos')</script>";
+			} else {
+				$post_message = $conn->real_escape_string($post_message);
+				
+				$query = "insert into mensagem values (null,'".$post_message."',now(),'".$post_assunto."', '".$postID."','".$utilizador_id."');";
+				$result = $conn->query($query);
+				
+				if ($result) {
+					header("Location: forum_post.php?postID=$postID");
+				} else {
+					header("Location: servicos.php");
+				}
+			}
+    
+		}
+	}
 	
 ?>
 <!DOCTYPE html>
@@ -29,16 +63,14 @@
   
   <!--<script src="scripts/simple.js"></script>-->
 	<?php
-		require_once "navbar.php";
-	?>
-
-	<?php
+	require_once "navbar.php";
+	
 	require_once "connectdb.php";
 	
     if ($conn->connect_errno) {
         $code = $conn->connect_errno;
         $message = $conn->connect_error;
-        $error_message = "Falha na ligação à base de dados";
+        echo "<script>alert('Falha na ligação a base de dados')</script>";
     } else {
 		
         $query = "select * from mensagem join utilizador on mensagem.UtilizadorID = utilizador.UtilizadorID where PostID = '$postID'";
@@ -64,7 +96,7 @@
 				<h3><?=$row['PrimeiroNome']," ",$row['Apelido']," | ",$row['Perfil']?></h3>
 				
 				<p class="forum_message_post"><?=$row['Mensagem']?></p>
-		
+				
 			</div>		
 			<?php
 			}} else {
@@ -83,10 +115,13 @@
 	
 	<div>
 		<!--<img src="images/sign_in.png" style="width:64px">-->
-		<textarea class="textbox_comment" maxlength="200" placeholder="Adicione um comentário"></textarea>
-		
-		<button disabled style="float:right" type="button">Publicar</button>
+		<form method="post">
+			<textarea name="post_message" class="textbox_comment" maxlength="255" placeholder="Adicione um comentário" required></textarea>
+			
+			<button name="post_comment" class="btn btn-primary" style="float:right" type="submit">Publicar</button>
+		</form>
 	</div>
+	
 	
 	
 	<?php
@@ -104,11 +139,13 @@
 			if ($result_set_comentario->num_rows > 0) {
 				$cont = 0;
 				
+				?><div class="forum_comment_div"><?php
+				
 				while($row = $result_set_comentario->fetch_assoc()) {
 					$cont += 1;
 					
 					?>
-					<div class="container forum_post forum_comment">
+					<div class="container forum_post forum_comment" style="border-bottom: 1px solid color:rgb(100,100,100)">
 						<img src="images/sign_in.png">
 						<h2><?=$row['PrimeiroNome']," ",$row['Apelido']," | ",$row['Perfil']?></h2>
 						<p class="forum_message_post"><?=$row['Mensagem']?></p>
@@ -117,6 +154,7 @@
 							<p><?="Postado em ",$row['DataHora']?></p>
 						</div>
 					</div>
+					
 					<?php
 					
 				}
@@ -132,6 +170,8 @@
 		$conn->close();
 	?>
 	
+	</div>
+	<br>
 	</div>
   
   <?php

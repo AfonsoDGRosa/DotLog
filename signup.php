@@ -94,32 +94,30 @@ session_start();
         <div id="login">
         <div class="container">
         <div id="login-row" class="row justify-content-center align-items-center">
-        <div id="login-column" class="col-md-6">
+        <div id="login-column" class="col-md-5">
         <div id="login-box" class="col-md-12">
                     <form action="#" class="form" method="post" id="login-form" enctype="multipart/form-data">
 					<img id="login-img" src="images/sign_in.png" class="signin">
 					<div class="text-center h4 mt-2">Registar Conta</div>
+                    
+                    <div class="form-group mt-5 row justify-content-between">
+                      <input class="form-controla col-5" style="margin-left:0;padding-left:1px" type="text" name="nome" id="idNome" autocomplete="off" placeholder="Nome" required value="' . $nome . '">
+                    
+                      <input class="form-controla col-5" style="margin-right:0;padding-left:2px" type="text" name="apelido" id="idApelido" autocomplete="off" placeholder="Apelido" required value="' . $apelido . '">
+                    </div>
+					
+					<div class="form-group">
+                      <input class="form-controla" type="email" name="email" id="idEmail" autocomplete="off" placeholder="Email" required value="' . $email . '">
+                    </div>
+					
                     <div class="form-group">
-                      <label for="idEmail" class="text-info">*Email:</label><br>
-                      <input class="form-control" type="email" name="email" id="idEmail" required value="' . $email . '"><br>
-                    </div>
-                      <div class="form-group">
-                      <label for="idNome" class="text-info">*Nome: </label>
-                      <input class="form-control" type="text" name="nome" id="idNome" required value="' . $nome . '"><br>
-                    </div>
-                      <div class="form-group">
-                      <label for="idApelido" class="text-info">Apelido</label>
-                      <input class="form-control" type="text" name="apelido" id="idApelido" required value="' . $apelido . '"><br>
-                    </div>
-                      <div class="form-group">
 
-                      <label for="idPass" class="text-info">*Password: </label>
-                      <input class="form-control" type="password" name="pass" id="idPass" required ><br>
+                      <input class="form-controla" type="password" name="pass" placeholder="Password" id="idPass" required ><br>
                     </div>
                       
                       <div class="form-group">
-                      <input class="btn btn-info btn-md" type="submit" value="Criar Conta" id="btSubmit">
-					  <input class="btn btn-info btn-md" type="reset" value="Limpar" id="btReset">
+                      <input class="log_button btn btn-md" type="submit" value="Criar Conta" id="btSubmit">
+					  <!--<input class="log_button btn btn-md" type="reset" value="Limpar" id="btReset">-->
 					  
                       
                       </div>

@@ -11,6 +11,8 @@ $Email = array_key_exists("Email", $_GET) ? $_GET["Email"] : "";
 $utilizadores = array();
 $pesquisa = array_key_exists("pesquisa", $_GET) ? $_GET["pesquisa"] : "";
 
+
+
 require_once "connectdb.php";
 
 if ($conn->connect_errno) {
@@ -36,6 +38,11 @@ if ($conn->connect_errno) {
 			$apelido = htmlspecialchars($row['Apelido']);
             $email = htmlspecialchars($row['Email']);
             $foto = htmlspecialchars($row['Imagem']);
+			
+			if (empty($foto)) {
+				$foto = "images/sign_in.png";
+			}
+			
             $utilizador = array('utilizador_id' => $user_id,'nome' => $nome,'apelido' => $apelido, 'email' => $email, 'foto' => $foto,);
             $utilizadores[] = $utilizador;
         }
@@ -76,6 +83,8 @@ if ($conn->connect_errno) {
 	
 	
 	<?php
+		$post_foto = array_key_exists('recipient-img', $_FILES) ? $_FILES['recipient-img']['name'] : "";
+	
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			require_once "connectdb.php";
 			
@@ -89,6 +98,8 @@ if ($conn->connect_errno) {
 				$post_apelido = $_POST["recipient-apelido"];
 				$post_email = $_POST["recipient-email"];
 				
+				//$post_foto = $_FILES["recipient-img"];
+				
 				if (empty($post_nome) || empty($post_email) || empty($post_apelido)) {
 					echo "<script>alert('Campos não foram preenchidos')</script>";
 				} elseif (strlen($post_nome) > 50 || strlen($post_apelido) > 50) {
@@ -98,7 +109,27 @@ if ($conn->connect_errno) {
 					$post_apelido = $conn->real_escape_string($post_apelido);
 					$post_email = $conn->real_escape_string($post_email);
 					
-					$sql = "insert into utilizador values(null,'".$post_nome."','".$post_apelido."','Cliente','".$post_email."','123',null)";
+					//$post_pass = hash('sha512', $pass);
+					
+					$sql = "insert into utilizador values(null,'".$post_nome."','".$post_apelido."','Cliente','".$post_email."',Sha2('123',512),null)";
+					
+					
+					//foto
+					if ($post_foto != "" && getimagesize($_FILES['recipient-img']['tmp_name'])) {
+						
+						$diretoria_upload = "uploads/foto/";
+						$extensao = pathinfo($post_foto, PATHINFO_EXTENSION);
+						$novo_ficheiro = $diretoria_upload . sha1(microtime()) . "." . $extensao;
+						
+						if (move_uploaded_file($_FILES['recipient-img']['tmp_name'], $novo_ficheiro)) {
+							echo "<script>alert('Upload da imagem bem sucedido!')</script>";
+							$sql = "insert into utilizador values(null,'".$post_nome."','".$post_apelido."','Cliente','".$post_email."',Sha2('123',512),'".$novo_ficheiro."')";
+						} else {
+							echo "<script>alert('Houve um problema no upload da imagem')</script>";
+						}
+					
+					}
+					
 					$add = $conn->query($sql);
 					
 					unset($_SESSION["Value_Utilizador"]);
@@ -125,6 +156,7 @@ if ($conn->connect_errno) {
 				$post_nome = $_POST["edit_nome"];
 				$post_apelido = $_POST["edit_apelido"];
 				$post_email = $_POST["edit_email"];
+				$post_foto_edit = $_FILES["edit-img"]['name'];
 				
 				if (empty($post_nome) || empty($post_email) || empty($post_apelido)) {
 					echo "<script>alert('Campos não foram preenchidos')</script>";
@@ -135,7 +167,24 @@ if ($conn->connect_errno) {
 					$post_apelido = $conn->real_escape_string($post_apelido);
 					$post_email = $conn->real_escape_string($post_email);
 					
-					$sql = "UPDATE utilizador SET PrimeiroNome = '".$_POST["edit_nome"]."',Apelido = '".$_POST["edit_apelido"]."', Email = '".$_POST["edit_email"]."' WHERE utilizador.Email = '".$_SESSION["Value_Utilizador"]."';";
+					$sql = "UPDATE utilizador SET PrimeiroNome = '".$_POST["edit_nome"]."',Apelido = '".$_POST["edit_apelido"]."', Email = '".$_POST["edit_email"]."' WHERE utilizador.Email = '".$_SESSION["Value_Utilizador"]."';";				
+					
+					if ($post_foto_edit != "" && getimagesize($_FILES['edit-img']['tmp_name'])) {
+						
+						$diretoria_upload = "uploads/foto/";
+						$extensao = pathinfo($post_foto_edit, PATHINFO_EXTENSION);
+						$novo_ficheiro = $diretoria_upload . sha1(microtime()) . "." . $extensao;
+						
+						if (move_uploaded_file($_FILES['edit-img']['tmp_name'], $novo_ficheiro)) {
+							echo "<script>alert('Upload da imagem bem sucedido!')</script>";
+							//$sql = "insert into utilizador values(null,'".$post_nome."','".$post_apelido."','Cliente','".$post_email."',Sha2('123',512),'".$novo_ficheiro."')";
+							$sql = "UPDATE utilizador SET PrimeiroNome = '".$_POST["edit_nome"]."',Apelido = '".$_POST["edit_apelido"]."', Email = '".$_POST["edit_email"]."',Imagem = '".$novo_ficheiro."' WHERE utilizador.Email = '".$_SESSION["Value_Utilizador"]."';";
+						} else {
+							echo "<script>alert('Houve um problema no upload da imagem')</script>";
+						}
+					
+					}
+					
 					$edit = $conn->query($sql);
 					
 					unset($_SESSION["Value_Utilizador"]);
@@ -260,7 +309,11 @@ if ($conn->connect_errno) {
 				<ul class="navbar-nav mr-auto">
 
 				</ul>
-				<div><img class="row_image" src="images/sign_in.png" alt="foto"><?php echo $_SESSION['userpname']," ",$_SESSION['useraname']?></div>
+				<div class="user_info"><img class="row_image" src="images/sign_in.png" alt="foto"><?php echo $_SESSION['userpname']," ",$_SESSION['useraname']?>
+				<a style="color:white;text-decoration:none" href="index.php"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-door-open-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+				<path fill-rule="evenodd" d="M1.5 15a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1H13V2.5A1.5 1.5 0 0 0 11.5 1H11V.5a.5.5 0 0 0-.57-.495l-7 1A.5.5 0 0 0 3 1.5V15H1.5zM11 2v13h1V2.5a.5.5 0 0 0-.5-.5H11zm-2.5 8c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1z"/>
+				</svg></a>
+				</div>
 			</nav>
 			
 			<div class="container-fluid before_navbar">
@@ -284,7 +337,7 @@ if ($conn->connect_errno) {
 				
 				<div class="modal-body">
 				
-				<form action="" method="post">
+				<form action="" method="post" enctype="multipart/form-data">
 				<div class="form-group">
 				<label for="recipient-name" class="col-form-label">Email:</label>
 				<input type="text" class="form-control" id="recipient-email" name="recipient-email">
@@ -336,7 +389,7 @@ if ($conn->connect_errno) {
 								<td><?= htmlspecialchars($um_utilizador['nome']) ?></td>
 								<td><?= htmlspecialchars($um_utilizador['apelido']) ?></td>
 								
-								<td><img class="row_image" src="images/sign_in.png" alt="foto"></td>
+								<td><img class="row_image" src=<?php echo $um_utilizador['foto'] ?> alt="foto"></td>
 								<td>
 									<a href="edit_utilizador.php?Valor=<?php echo htmlspecialchars($um_utilizador['email']); ?>" class="option_edit" style="text-decoration:none;color:inherit"><svg class="bi bi-pencil-square" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 									<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
@@ -398,7 +451,7 @@ if ($conn->connect_errno) {
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-	  <form action="" method="post">
+	  <form action="" method="post" enctype="multipart/form-data">
       <div class="modal-body">
 	  
 		<label for="">Nome</label>
@@ -407,6 +460,8 @@ if ($conn->connect_errno) {
 		<input type="text" class="form-control" name="edit_apelido" id="edit_apelido" value="<?php echo $EditarApelido?>">
 		<label for="exampleInputEmail1">Email address</label>
 		<input type="email" class="form-control" name="edit_email" id="edit_email" aria-describedby="emailHelp" value="<?php echo $EditarEmail?>">
+		<label for="">Imagem:</label><br>
+		<input type="file" class="" id="edit-img" name="edit-img">
       </div>
 	  
       <div class="modal-footer">

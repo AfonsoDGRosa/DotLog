@@ -39,23 +39,39 @@ $produto = array_key_exists("produto", $_GET) ? $_GET["produto"] : "";
 
   if($card1->num_rows == 1) { 
     $row = $card1->fetch_assoc();
-    echo '<div class="card" >
-    <img src='.$row['Imagem'].' class="card-img-top p-3" style="width:25%">
-      <div style="margin-left: 300px;">
-        <h2 class="card-title">' .$produto. '</h2>
-        <p style:"margin-bottom:25%">'.$row['Descricao'].'</p>
-        <p class="preco">'.$row['Preco'].'</p>
+    ?><div class="produto_box">
+    <img src=<?php echo $row['Imagem']?> style="width: 250px; margin-left: 15%; float: left">
+      <div>
+        <h2 class="card-title"><?php echo $produto ?></h2>
+        <p style:"margin-bottom:25%"><?php echo $row['Descricao']?></p>
       </div> 
+	  
       <br>
-
- 
+	  <br>
       <br>
-      <br>';     
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+	  </div>
+	  <?php
   } else { 
     $error_message = "Produto não encontrado";
   }
     ?>
-    </div>             
   </section>
   
   <?php

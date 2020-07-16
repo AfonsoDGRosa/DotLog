@@ -41,7 +41,7 @@ session_start();
 		<img class="d-block w-100 slider_img" src="images/Homepage/Slider_a.png" alt="Second slide">
     </div>
     <div class="carousel-item">
-		<img class="d-block w-100 slider_img" src="images/Homepage/Slider_b.png" alt="Third slide">
+		<img class="d-block w-100 slider_img" src="images/Homepage/Slider_c.png" alt="Third slide">
     </div>
   </div>
   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">

@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <meta charset="UTF-8">
@@ -52,12 +56,12 @@
 
                     <div class="Lista">
                         <h2>Email Administrativo</h2>
-                        <p>rec_humanos@dotlog.com</p>
+                        <p>dotlog_administrativo@dotlog.com</p>
                     </div>
 
                     <div class="Lista">
                         <h2>Email Técnico</h2>
-                        <p>ass_tec@dotlog.com</p>
+                        <p>dotlog_tec@dotlog.com</p>
                     </div>
 
                     <div class="Lista">

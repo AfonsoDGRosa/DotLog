@@ -7,7 +7,7 @@
 
           <h6 class="text-uppercase font-weight-bold">Dotlog</h6>
           <hr class="white mb-4 mt-0 d-inline-block mx-auto" style="width: 75px;border-top: 1px solid rgb(255,255,255)">
-          <p>lorem ipsum</p>
+          <!--<p>lorem ipsum</p>-->
 
         </div>
 
@@ -18,7 +18,7 @@
           <p>Leiria</p>
           <p>dotlog@gmail.com</p>
           <p>923 424 112</p>
-          <p>09:00 - 19:00</p>
+          <p>08:00 - 21:00</p>
         </div>
 
         <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">

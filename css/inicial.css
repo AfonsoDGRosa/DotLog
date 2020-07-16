@@ -61,6 +61,7 @@ body{
 .servicos_card{
 	border-radius: 0;
 	border-color:rgba(180,180,180,1);
+	transition: all 0.5s ease;
 	/*box-shadow: 7px 7px 10px 0px rgb(0,0,0,0.2)*/
 }
 
@@ -69,6 +70,8 @@ body{
 	/*background-color: rgba(0,190,255,0.1);*/
 	width: 19rem;
 	cursor: pointer;	
+	box-shadow: #929292 5px 5px 15px;
+	transition: all 0.5s ease;
 }
 
 .servicos_lista{
